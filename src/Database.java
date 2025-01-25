@@ -26,7 +26,7 @@ public class Database {
 
     }
 
-    public ArrayList<Project> getProjects(){
+    public ArrayList<Project> getProjects() {
         return projects;
     }
 
@@ -41,16 +41,16 @@ public class Database {
         }
     }
 
-    public String confirmEmail(String email){
-        if(email.contains("@purdue.edu")) {
+    public String confirmEmail(String email) {
+        if (email.contains("@purdue.edu")) {
             return "";
         } else {
             return "Must be a Purdue email. ";
         }
     }
 
-    public String confirmProjectName(String projectName){
-        for(int i = 0; i < projects.size(); i++) {
+    public String confirmProjectName(String projectName) {
+        for (int i = 0; i < projects.size(); i++) {
             if (projects.get(i).getName().equals(projectName)) {
                 return "Project name is already taken";
             }
@@ -58,9 +58,9 @@ public class Database {
         return "Valid project name. ";
     }
 
-    public String confirmUsername(String username){
-        for(int i = 0; i < userList.size(); i++) {
-            if (userList.get(i).getUsername().equals(username)){
+    public String confirmUsername(String username) {
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getUsername().equals(username)) {
                 return "Username is already taken. ";
             }
         }
@@ -77,7 +77,7 @@ public class Database {
             issues += "Password cannot contain spaces. ";
         }
 
-        for(int i = 0; i < password.length(); i++) {
+        for (int i = 0; i < password.length(); i++) {
             if ((password.charAt(i) > 65) && (password.charAt(i) < 91)) {
                 uppercase = true;
             }
@@ -86,7 +86,7 @@ public class Database {
             issues += "Password must have an uppercase letter. ";
         }
 
-        for(int i = 0; i < password.length(); i++) {
+        for (int i = 0; i < password.length(); i++) {
             if ((password.charAt(i) > 96) && (password.charAt(i) < 123)) {
                 lowercase = true;
             }
@@ -95,7 +95,7 @@ public class Database {
             issues += "Password must have a lowercase letter. ";
         }
 
-        for(int i = 0; i < password.length(); i++) {
+        for (int i = 0; i < password.length(); i++) {
             if ((password.charAt(i) > 47) && (password.charAt(i) < 58)) {
                 number = true;
             }
@@ -104,7 +104,7 @@ public class Database {
             issues += "Password must have a number. ";
         }
 
-        if(password.length() < 8 || password.length() > 15) {
+        if (password.length() < 8 || password.length() > 15) {
             issues += "Password must be between 8 and 15 characters long. ";
         }
 
@@ -115,6 +115,10 @@ public class Database {
         userDataWriter.println(user.toString());
         userDataWriter.flush();
         userList.add(user);
+    }
+
+    public ArrayList<User> getUsers() {
+        return userList;
     }
 
     public void loadUsers() {
@@ -155,7 +159,7 @@ public class Database {
     }
 
     public User findUser(String username) {
-        ArrayList<User> userList= this.getUserList();
+        ArrayList<User> userList = this.getUserList();
         for (User user : userList) {
             if (user.getName().equals(username)) {
                 return user;
@@ -165,7 +169,7 @@ public class Database {
     }
 
     public Project findProject(String projectName) {
-        ArrayList<Project> projectList= this.getProjects();
+        ArrayList<Project> projectList = this.getProjects();
         for (Project project : projectList) {
             if (project.getName().equals(projectName)) {
                 return project;
@@ -174,13 +178,31 @@ public class Database {
         return null;
     }
 
+    public boolean projectIsUsers(String projectName, String username) {
+        Project project = this.findProject(projectName);
+        return project.getUsername().equals(username);
+    }
+
     public String removeProject(String projectName) {
+        int counter = 0;
         for (Project project : projects) {
             if (project.getName().equals(projectName)) {
                 projects.remove(project);
-                return "Success";
+                counter++;
+                break;
             }
         }
-        return "Failure";
+        for (User user : userList) {
+            if (projectIsUsers(projectName, user.getUsername())) {
+                user.removeProject(projectName);
+                counter++;
+                break;
+            }
+        }
+        if (counter == 2) {
+            return "Success";
+        } else {
+            return "Failure";
+        }
     }
 }
