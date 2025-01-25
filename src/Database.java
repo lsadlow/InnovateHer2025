@@ -31,11 +31,21 @@ public class Database {
     }
 
     // Confirming methods
+    public String confirmSignup(String email, String username, String password) {
+        String results = "";
+        results += confirmEmail(email) + confirmUsername(username) + confirmPassword(password);
+        if (results.isEmpty()) {
+            return "Signup successful!";
+        } else {
+            return results;
+        }
+    }
+
     public String confirmEmail(String email){
         if(email.contains("@purdue.edu")) {
-            return "Valid username";
+            return "";
         } else {
-            return "Must be a Purdue username";
+            return "Must be a Purdue email. ";
         }
     }
 
@@ -45,30 +55,26 @@ public class Database {
                 return "Project name is already taken";
             }
         }
-        return "Valid project name";
+        return "Valid project name. ";
     }
 
     public String confirmUsername(String username){
         for(int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getUsername().equals(username)){
-                return "Username is already taken";
+                return "Username is already taken. ";
             }
         }
-        return "Valid username";
+        return "";
     }
 
     public String confirmPassword(String password) {
         boolean uppercase = false;
         boolean lowercase = false;
         boolean number = false;
-        boolean noSpace = false;
-        boolean correctLength = false;
         String issues = "";
 
         if (password.contains(" ")) {
             issues += "Password cannot contain spaces. ";
-        } else {
-            noSpace = true;
         }
 
         for(int i = 0; i < password.length(); i++) {
@@ -100,13 +106,8 @@ public class Database {
 
         if(password.length() < 8 || password.length() > 15) {
             issues += "Password must be between 8 and 15 characters long. ";
-        } else {
-            correctLength = true;
         }
 
-        if(noSpace && uppercase && lowercase && number && correctLength) {
-            issues = "Valid Password";
-        }
         return issues;
     }
 

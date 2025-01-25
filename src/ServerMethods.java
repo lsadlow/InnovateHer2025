@@ -1,12 +1,8 @@
 import java.util.ArrayList;
 
 public class ServerMethods {
-    Database db;
-    // Signup - name, username grade, email (check that email has purdue in it), major, password
-    //Login - username, password
-    //Add languages/skills
-    //Add project
-    //Remove project
+    private Database db;
+  
     public ServerMethods(Database db) {
         this.db = db;
     }
@@ -14,7 +10,9 @@ public class ServerMethods {
         String[] split = infoSent.split(" ");
         String action = split[0];
         switch(action) {
-            case "LOGIN":
+            case "SIGNUP":
+                return signup(split[1], split[2], split[3], split[4], split[5], split[6]);
+              case "LOGIN":
                 String outcome = login(split[1], split[2]);
             case "ADDPROJECTLANGUAGES":
                 String projectLanguageOutcome = addProjectLanguages(split[1], split[2]);  //parameters are language list and project name
@@ -23,11 +21,17 @@ public class ServerMethods {
             case "Signup":
             case "ADDPROJECT":
                 String addProjectOutcome = addProject(split[1], split[2], split[3], split[4]);  //parameters are project name, description, language list, and username of poster
-
-
-
-
         }
+    }
+
+    public String signup(String name, String username, String password,String email, String languages, String major){
+        String result = db.confirmSignup(email, username, password);
+        if(result.equals("Signup successful!")) {
+            User user = new User(name, username, password, email, languages, major);
+            db.addUser(user);
+        }
+        return result;
+          
     }
 
     public String signup(String name, String username, String password,String email, String languages) {
