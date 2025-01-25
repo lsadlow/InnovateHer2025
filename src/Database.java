@@ -69,4 +69,19 @@ public class Database {
         return userList;
     }
 
+    public void removeProject(Project project) {
+        String projectString = project.toString();
+        try {
+            BufferedReader projectReader = new BufferedReader(new FileReader("projects.txt"));
+            String line = projectReader.readLine();
+            while (line != null) {
+                if (line.equals(projectString)) {
+                    projectList.remove(project);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
