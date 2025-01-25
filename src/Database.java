@@ -10,6 +10,7 @@ public class Database {
     private PrintWriter userDataWriter;
     private PrintWriter projectDataWriter;
     private ArrayList<User> userList;
+    private ArrayList<Project> projects;
 
     public Database() {
         this.userDataFile = new File("users.txt");
@@ -25,6 +26,80 @@ public class Database {
 
     }
 
+    public ArrayList<Project> getProjects(){
+        return projects;
+    }
+
+    public boolean confirmProjectName(String projectName){
+        for(int i = 0; i < projects.size(); i++) {
+            if (projects.get(i).getName().equals(projectName)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean confirmUsername(String username){
+        for(int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getUsername().equals(username)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String confirmPassword(String password) {
+        boolean uppercase = false;
+        boolean lowercase = false;
+        boolean number = false;
+        boolean noSpace = false;
+        boolean correctLength = false;
+        String issues = "";
+
+        if (password.contains(" ")) {
+            issues += "Password cannot contain spaces. ";
+        } else {
+            noSpace = true;
+        }
+
+        for(int i = 0; i < password.length(); i++) {
+            if ((password.charAt(i) > 65) && (password.charAt(i) < 91)) {
+                uppercase = true;
+            }
+        }
+        if (!uppercase) {
+            issues += "Password must have an uppercase letter. ";
+        }
+
+        for(int i = 0; i < password.length(); i++) {
+            if ((password.charAt(i) > 96) && (password.charAt(i) < 123)) {
+                lowercase = true;
+            }
+        }
+        if (!lowercase) {
+            issues += "Password must have a lowercase letter. ";
+        }
+
+        for(int i = 0; i < password.length(); i++) {
+            if ((password.charAt(i) > 47) && (password.charAt(i) < 58)) {
+                number = true;
+            }
+        }
+        if (!number) {
+            issues += "Password must have a number. ";
+        }
+
+        if(password.length() < 8 || password.length() > 15) {
+            issues += "Password must be between 8 and 15 characters long. ";
+        } else {
+            correctLength = true;
+        }
+
+        if(noSpace && uppercase && lowercase && number && correctLength) {
+            issues = "Valid Password";
+        }
+        return issues;
+    }
 
     public void addUser(User user) {
         userDataWriter.println(user.toString());
