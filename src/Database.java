@@ -5,7 +5,6 @@ public class Database {
 
     private File userDataFile;
     private File projectDataFile;
-    private ArrayList<File> userProjectFiles;
     private BufferedReader userDataReader;
     private BufferedReader projectDataReader;
     private PrintWriter userDataWriter;
@@ -187,62 +186,19 @@ public class Database {
         return "Failure";
     }
 
-    public String createUserProjectFiles() {
-        this.loadUsers();
-        for (User user : userList) {
-            String fileName = user.getUsername() + "Projects.txt";
-            ArrayList<String> projectsLeading = user.getProjects();
-            try {
-                File file = new File(fileName);
-                PrintWriter fileWriter = new PrintWriter(new FileWriter(file));
-                fileWriter.println("Leading:");
-                for (String project : projectsLeading) {
-                    fileWriter.println(project);
-                    fileWriter.flush();
-                }
-                fileWriter.println("Working on:");
-                ArrayList<String> projectsTrailing = user.getProjects();
-                for (String project : projectsTrailing) {
-                    fileWriter.println(project);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "Failure";
-            }
-        }
-    }
-
-    public String getUserProjectFile(String username) {
+    public String getUsersProjects(String username) {
+        String projects = "";
         try {
-            User user = this.findUser(username);
-            BufferedReader fileReader = new BufferedReader(new FileReader(username + "Projects.txt"));
-            fileReader.readLine();
-            String line = fileReader.readLine();
-            ArrayList<String> projectLeaderNames = new ArrayList<String>();
-            while (line != null && !line.equals("Working on:")) {
-                projectLeaderNames.add(line);
-                line = fileReader.readLine();
+            User findUser = this.findUser(username);
+            ArrayList<String> projectList = findUser.getProjects();
+            for (String project : projectList) {
+                projects += project + ",";
             }
-            String workingLine = fileReader.readLine();
-            ArrayList<String> workingNames = new ArrayList<String>();
-            while (workingLine != null && !workingLine.equals("Working on:")) {
-                workingNames.add(workingLine);
-                workingLine = fileReader.readLine();
-            }
-            String leaderLine = "";
-            for (int i = 0; i < projectLeaderNames.size(); i++) {
-                leaderLine += projectLeaderNames.get(i) + ",";
-            }
-            leaderLine = leaderLine.substring(0, leaderLine.length() - 1);
-            String workingOutput = "";
-            for (int i = 0; i < workingNames.size(); i++) {
-                workingOutput += workingNames.get(i) + ",";
-            }
-            workingOutput = workingOutput.substring(0, workingOutput.length() - 1);
-            return leaderLine + " " + workingOutput;
-        } catch (IOException e) {
+            return projects;
+        } catch (Exception e) {
             e.printStackTrace();
             return "Failure";
         }
     }
+
 }
