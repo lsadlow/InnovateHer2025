@@ -162,4 +162,14 @@ public class Database {
         }
         return null;
     }
+
+    public Project findProject(String projectName) {
+        ArrayList<Project> projectList= this.getProjects();
+        for (Project project : projectList) {
+            if (project.getName().equals(projectName)) {
+                return project;
+            }
+        }
+        return null;
+    }
 }

@@ -52,4 +52,8 @@ public class Project {
         return postToString;
     }
 
+    public ArrayList<String> getLanguages() {
+        return languages;
+    }
+
 }
