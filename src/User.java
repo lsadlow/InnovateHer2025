@@ -95,6 +95,7 @@ public class User {
         this.projectsOn.add(projectName);
     }
 
+
     public void removeProjectOwned(String projectName) {
         for (int i = 0; i < this.projectsOwned.size(); i++) {
             if(projectsOwned.get(i).equals(projectName)) {
@@ -113,7 +114,6 @@ public class User {
         }
     }
 
-
     public String toString() {  //for sending to database addUser() method
         String languagesToString = "";
         for (String language : languages) {
@@ -122,6 +122,10 @@ public class User {
         languagesToString = languagesToString.substring(0, languagesToString.length() - 1);
         String userString = name + ";" + username+ ";" + password + ";" + email + languagesToString + ";" + bio + ";" + username + ";" + major;
         return userString;
+    }
+
+    public ArrayList<String> getProjects() {
+        return projects;
     }
 
 }

@@ -138,6 +138,7 @@ public class Database {
     public void saveProject(Project project) {
         String projectString = project.toString();
         projectDataWriter.println(projectString);
+        projectDataWriter.flush();
     }
 
     public void loadProjects() {
@@ -205,4 +206,20 @@ public class Database {
             return "Failure";
         }
     }
+
+    public String getUsersProjects(String username) {
+        String projects = "";
+        try {
+            User findUser = this.findUser(username);
+            ArrayList<String> projectList = findUser.getProjects();
+            for (String project : projectList) {
+                projects += project + ",";
+            }
+            return projects;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failure";
+        }
+    }
+
 }

@@ -32,6 +32,7 @@ public class ServerMethods {
                 outcome = db.removeProject(split[1]);
             case "CHANGEUSERNAME":
                 outcome =
+
         }
         return outcome;
     }
@@ -109,15 +110,19 @@ public class ServerMethods {
         return "Project Added Successfully";
     }
 
-//    public String removeProject(String projectName) {
-//        try {
-//            Project toRemove = db.findProject(projectName);
-//            db.removeProject(projectName);
-//            return "Project Removed Successfully";
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return "Failure";
-//        }
-//    }
+
+    public String removeProject(String projectName) {
+        try {
+            Project toRemove = db.findProject(projectName);
+            db.removeProject(projectName);
+            User poster = toRemove.getPoster();
+            poster.removeProject(projectName);
+            return "Project Removed Successfully";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failure";
+        }
+
+    }
 
 }

@@ -88,4 +88,8 @@ public class Project {
         return languages;
     }
 
+    public User getPoster() {
+        return poster;
+    }
+
 }
