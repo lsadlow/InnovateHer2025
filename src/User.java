@@ -4,7 +4,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private ArrayList languages;
+    private ArrayList<String> languages;
     private String bio;
 
     public User(String name, String email, String password, String languages) {
