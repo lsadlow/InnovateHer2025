@@ -23,7 +23,6 @@ public class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.userProjectFiles = new ArrayList<>();
 
     }
 
