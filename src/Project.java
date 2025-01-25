@@ -4,13 +4,27 @@ public class Project {
     private String description;
     private ArrayList<String> languages;
     private User poster;
+    private String name;
+    private Database db;
 
-    public Project(String description, ArrayList languages, User poster) {
+    public Project(String name, String description, String languages, String username) {
+        this.name = name;
         this.description = description;
-        this.languages = languages;
-        this.poster = poster;
+        this.languages = this.setLanguages(languages);
+        db = new Database();
+        db.loadUsers();
+        this.poster = findUser(username);
     }
 
+    public User findUser(String username) {
+        ArrayList<User> userList= db.getUserList();
+        for (User user : userList) {
+            if (user.getName().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
 
     public void addLanguage(String language) {
         languages.add(language);
@@ -20,6 +34,14 @@ public class Project {
         languages.remove(language);
     }
 
+    public ArrayList<String> setLanguages(String languages) {
+        ArrayList<String> newLanguages = new ArrayList<>();
+        String[] languagesArray = languages.split(",");
+        for (String language : languagesArray) {
+            newLanguages.add(language);
+        }
+        return newLanguages;
+    }
     public String toString() {
         String languagesString = "";
         for (int i = 0; i < languages.size(); i++) {
