@@ -27,8 +27,8 @@ public class User {
         return languages;
     }
 
-    public void setLanguages(String languages) {  //input is languages separated by spaces
-        String[] languageArray = languages.split(" ");
+    public void setLanguages(String languages) {  //input is languages separated by commas (no spaces)
+        String[] languageArray = languages.split(",");
         for (int i = 0; i < languageArray.length; i++) {
             this.languages.add(languageArray[i]);
         }
@@ -39,7 +39,12 @@ public class User {
     }
 
     public String toString() {  //for sending to database addUser() method
-        String userString = name + " " + email + " " + password + " " + languages + " " + bio;
+        String languagesToString = "";
+        for (String language : languages) {
+            languagesToString += language + ",";
+        }
+        languagesToString = languagesToString.substring(0, languagesToString.length() - 1);
+        String userString = name + " " + email + " " + password + " " + languagesToString + " " + bio;
         return userString;
     }
 

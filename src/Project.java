@@ -3,21 +3,14 @@ import java.util.ArrayList;
 public class Project {
     private String description;
     private ArrayList languages;
-    private int numOfPeople;  //how many people looking to collaborate with
     private User poster;
-    private int activePeople;  //number of people on project
 
-    public Project(String description, ArrayList languages, int numOfPeople, User poster) {
+    public Project(String description, ArrayList languages, User poster) {
         this.description = description;
         this.languages = languages;
-        this.numOfPeople = numOfPeople;
         this.poster = poster;
-        this.activePeople = 1;
     }
 
-    public void addCollaborator() {
-        activePeople++;
-    }
 
     public void addLanguage(String language) {
         languages.add(language);
@@ -25,5 +18,15 @@ public class Project {
 
     public void removeLanguage(String language) {
         languages.remove(language);
+    }
+
+    public String toString() {
+        String languagesString = "";
+        for (int i = 0; i < languages.size(); i++) {
+            languagesString += languages.get(i) + ",";
+        }
+        languagesString = languagesString.substring(0, languagesString.length() - 1);
+        String postToString = description + " " + languagesString + " " + poster.getName();
+        return postToString;
     }
 }
