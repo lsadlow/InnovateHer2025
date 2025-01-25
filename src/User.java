@@ -6,7 +6,8 @@ public class User {
     private String password;
     private ArrayList<String> languages;
     private String bio;
-    private ArrayList<String> projects;
+    private ArrayList<String> projectsOwned;
+    private ArrayList<String> projectsOn;
     private String username;
     private String major;
 
@@ -19,7 +20,8 @@ public class User {
         this.email = email;
         this.setLanguages(languages);
         this.bio = "";
-        this.projects = new ArrayList<String>();
+        this.projectsOwned = new ArrayList<String>();
+        this.projectsOn = new ArrayList<String>();
         this.username = username;
         this.major = major;
     }
@@ -37,7 +39,7 @@ public class User {
         return email;
     }
 
-    public ArrayList getLanguages() {
+    public ArrayList<String> getLanguages() {
         return languages;
     }
 
@@ -62,10 +64,17 @@ public class User {
         this.email = email;
     }
 
-    public void setProjects(String projects){
+    public void setProjectsOwned(String projects){
         String[] projectArray = projects.split(",");
         for (int i = 0; i < projectArray.length; i++) {
-            this.projects.add(projectArray[i]);
+            this.projectsOwned.add(projectArray[i]);
+        }
+    }
+
+    public void setProjectsOn(String projects){
+        String[] projectArray = projects.split(",");
+        for (int i = 0; i < projectArray.length; i++) {
+            this.projectsOn.add(projectArray[i]);
         }
     }
 
@@ -81,14 +90,29 @@ public class User {
     }
 
     // Other methods
-    public void addProject(String projectName){
-        this.projects.add(projectName);
+    public void addProjectOwned(String projectName){
+        this.projectsOwned.add(projectName);
     }
 
-    public void removeProject(String projectName) {
-        for (int i = 0; i < this.projects.size(); i++) {
-            if (this.projects.get(i).equals(projectName)) {
-                projects.remove(i);
+    public void addProjectOn(String projectName){
+        this.projectsOn.add(projectName);
+    }
+
+
+    public void removeProjectOwned(String projectName) {
+        for (int i = 0; i < this.projectsOwned.size(); i++) {
+            if(projectsOwned.get(i).equals(projectName)) {
+                projectsOwned.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void removeProjectOn(String projectName) {
+        for (int i = 0; i < this.projectsOn.size(); i++) {
+            if(projectsOn.get(i).equals(projectName)) {
+                projectsOn.remove(i);
+                break;
             }
         }
     }

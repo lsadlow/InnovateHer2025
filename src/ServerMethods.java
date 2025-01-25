@@ -2,28 +2,39 @@ import java.util.ArrayList;
 
 public class ServerMethods {
     private Database db;
-  
+
     public ServerMethods(Database db) {
         this.db = db;
     }
+
     public String serverFunctions(String infoSent) {
         String[] split = infoSent.split(" ");
         String action = split[0];
-        switch(action) {
+        String outcome = "";
+        switch (action) {
             case "SIGNUP":
-                return signup(split[1], split[2], split[3], split[4], split[5], split[6]);
+                outcome = signup(split[1], split[2], split[3], split[4], split[5], split[6]);
+                break;
             case "LOGIN":
-                String outcome = login(split[1], split[2]);
+                outcome = login(split[1], split[2]);
+                break;
             case "ADDPROJECTLANGUAGES":
-                String projectLanguageOutcome = addProjectLanguages(split[1], split[2]);  //parameters are language list and project name
+                outcome = addProjectLanguages(split[1], split[2]);  //parameters are language list and project name
+                break;
             case "ADDUSERLANGUAGES":
-                String userLanguageOutcome = addUserLanguages(split[1], split[2]); //parameters are language list and username
-            case "Signup":
+                outcome = addUserLanguages(split[1], split[2]); //parameters are language list and username
+                break;
             case "ADDPROJECT":
-                String addProjectOutcome = addProject(split[1], split[2], split[3], split[4]);  //parameters are project name, description, language list, and username of poster
+                outcome = addProject(split[1], split[2], split[3], split[4]);  //parameters are project name,
+                // description, language list, and username of poster
+                break;
             case "REMOVEPROJECT":
-                String removeProjectOutcome = removeProject(split[1]); //parameter is project name
+                outcome = db.removeProject(split[1]);
+            case "CHANGEUSERNAME":
+                outcome =
+
         }
+        return outcome;
     }
 
     public String signup(String name, String username, String password,String email, String languages, String major){
@@ -34,10 +45,6 @@ public class ServerMethods {
         }
         return result;
           
-    }
-
-    public String signup(String name, String username, String password,String email, String languages) {
-
     }
 
     public String login(String username, String password) {
@@ -102,6 +109,7 @@ public class ServerMethods {
         }
         return "Project Added Successfully";
     }
+
 
     public String removeProject(String projectName) {
         try {
