@@ -10,6 +10,7 @@ public class Database {
     private PrintWriter userDataWriter;
     private PrintWriter projectDataWriter;
     private ArrayList<User> userList;
+    private ArrayList<Project> projectList;
 
     public Database() {
         this.userDataFile = new File("users.txt");
@@ -55,7 +56,9 @@ public class Database {
             String line = projectDataReader.readLine();
             while (line != null) {
                 String[] projectParameters = line.split(" ");
-                Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2]);
+                Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2], projectParameters[3]);
+                projectList.add(toBeAdded);
+                line = projectDataReader.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
