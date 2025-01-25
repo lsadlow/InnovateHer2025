@@ -12,7 +12,10 @@ public class ServerMethods {
         String[] split = infoSent.split(" ");
         String action = split[0];
         switch(action) {
+            case "LOGIN":
+                String outcome = login(split[1], split[2]);
             case "Signup":
+
 
 
 
@@ -26,7 +29,7 @@ public class ServerMethods {
     public String login(String username, String password) {
         User toValidate = db.findUser(username);
         String userPassword = toValidate.getPassword();
-        if(userPassword.equals(password)){
+        if(userPassword.equals(password)) {
             return "Success";
         } else {
             return "Failure";
