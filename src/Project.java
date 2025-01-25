@@ -18,22 +18,13 @@ public class Project {
         this.username = username;
         Database db = new Database();
         db.loadUsers();
-        this.poster = this.findUser(username);
+        this.poster = db.findUser(username);
     }
 
     public String getName() {
         return name;
     }
 
-    public User findUser(String username) {
-        ArrayList<User> userList= db.getUserList();
-        for (User user : userList) {
-            if (user.getName().equals(username)) {
-                return user;
-            }
-        }
-        return null;
-    }
 
     public void addLanguage(String language) {
         languages.add(language);
