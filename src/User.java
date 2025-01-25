@@ -88,7 +88,7 @@ public class User {
             languagesToString += language + ",";
         }
         languagesToString = languagesToString.substring(0, languagesToString.length() - 1);
-        String userString = name + " " + username+ " " + password + " " + " " + email + languagesToString + " " + bio + " " + username + " " + major;
+        String userString = name + ";" + username+ ";" + password + ";" + email + languagesToString + ";" + bio + ";" + username + ";" + major;
         return userString;
     }
 
