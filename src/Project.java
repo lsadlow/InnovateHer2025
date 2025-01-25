@@ -14,6 +14,7 @@ public class Project {
         this.description = description;
         this.languages = this.setLanguages(languages);
         this.username = username;
+        Database db = new Database();
         db.loadUsers();
         this.poster = this.findUser(username);
     }
