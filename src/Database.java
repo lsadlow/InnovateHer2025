@@ -121,8 +121,27 @@ public class Database {
         }
     }
 
-    public void saveProject() {
+    public void saveProject(Project project) {
+        String projectString = project.toString();
+        projectDataWriter.println(projectString);
+    }
 
+    public void loadProjects() {
+        try {
+            String line = projectDataReader.readLine();
+            while (line != null) {
+                String[] projectParameters = line.split(" ");
+                Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2], projectParameters[3]);
+                projectList.add(toBeAdded);
+                line = projectDataReader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<User> getUserList() {
+        return userList;
     }
 
 }

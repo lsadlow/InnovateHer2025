@@ -7,11 +7,9 @@ public class User {
     private ArrayList<String> languages;
     private String bio;
     private ArrayList<String> projects;
-    private String username;
 
-    public User(String name, String username, String password, String email, String languages) {
+    public User(String name, String password, String email, String languages) {
         this.name = name;
-        this.username = username;
         this.password = password;
         this.email = email;
         this.setLanguages(languages);
@@ -32,10 +30,6 @@ public class User {
         return languages;
     }
 
-    public String getUsername(){
-        return username;
-    }
-
     public String getPassword(){
         return password;
     }
@@ -51,10 +45,6 @@ public class User {
 
     public void setPassword(String password){
         this.password = password;
-    }
-
-    public void setUsername(String username){
-        this.username = username;
     }
 
     public void setEmail(String email){
