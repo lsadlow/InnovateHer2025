@@ -153,4 +153,23 @@ public class Database {
         return userList;
     }
 
+    public User findUser(String username) {
+        ArrayList<User> userList= this.getUserList();
+        for (User user : userList) {
+            if (user.getName().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public Project findProject(String projectName) {
+        ArrayList<Project> projectList= this.getProjects();
+        for (Project project : projectList) {
+            if (project.getName().equals(projectName)) {
+                return project;
+            }
+        }
+        return null;
+    }
 }

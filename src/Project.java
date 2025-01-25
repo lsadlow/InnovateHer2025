@@ -18,22 +18,13 @@ public class Project {
         this.username = username;
         Database db = new Database();
         db.loadUsers();
-        this.poster = this.findUser(username);
+        this.poster = db.findUser(username);
     }
 
     public String getName() {
         return name;
     }
 
-    public User findUser(String username) {
-        ArrayList<User> userList= db.getUserList();
-        for (User user : userList) {
-            if (user.getName().equals(username)) {
-                return user;
-            }
-        }
-        return null;
-    }
 
     public void addLanguage(String language) {
         languages.add(language);
@@ -59,6 +50,10 @@ public class Project {
         languagesString = languagesString.substring(0, languagesString.length() - 1);
         String postToString = name + " " + description + " " + languagesString + " " + poster.getUsername();
         return postToString;
+    }
+
+    public ArrayList<String> getLanguages() {
+        return languages;
     }
 
 }
