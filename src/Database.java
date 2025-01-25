@@ -65,4 +65,8 @@ public class Database {
         }
     }
 
+    public ArrayList<User> getUserList() {
+        return userList;
+    }
+
 }
