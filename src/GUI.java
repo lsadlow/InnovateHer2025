@@ -15,7 +15,7 @@ public class GUI {
         frame.setLayout(new FlowLayout());
         frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
-        JLabel enterNameLabel = new JLabel("Enter your full name:");
+        JLabel enterNameLabel = new JLabel("Enter your full name (no spaces):");
         JTextField enterNameTextField = new JTextField(20);
 
         JLabel enterEmailLabel = new JLabel("Enter your email:");

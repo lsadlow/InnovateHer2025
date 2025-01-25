@@ -12,6 +12,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.setLanguages(languages);
+        this.bio = "";
     }
 
     public String getName() {
@@ -35,6 +36,11 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String toString() {  //for sending to database addUser() method
+        String userString = name + " " + email + " " + password + " " + languages + " " + bio;
+        return userString;
     }
 
 }
