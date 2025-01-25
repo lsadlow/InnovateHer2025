@@ -7,6 +7,7 @@ public class Project {
     private String description;
     private ArrayList languages;
     private User poster;
+    private boolean visible;
 
     private String username;
     private Database db;
@@ -19,16 +20,41 @@ public class Project {
         Database db = new Database();
         db.loadUsers();
         this.poster = db.findUser(username);
+        this.visible = true;
     }
 
     public String getName() {
         return name;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void makeVisible() {
+        this.visible = true;
+    }
+
+    public void makeInvisible() {
+        this.visible = false;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
 
     public void addLanguage(String language) {
-        languages.add(language);
+        boolean notHere = true;
+        for (int i = 0; i < languages.size(); i++)
+            if (languages.get(i).equals(language)) {
+                notHere = false;
+                break;
+            }
+        if (notHere) {
+            languages.add(language);
+        }
     }
+
 
     public ArrayList<String> setLanguages(String languages) {
         String[] languagesArray = languages.split(",");
@@ -38,8 +64,14 @@ public class Project {
         }
         return newLanguages;
     }
+
     public void removeLanguage(String language) {
-        languages.remove(language);
+        for (int i = 0; i < languages.size(); i++) {
+            if (languages.get(i).equals(language)) {
+                languages.remove(i);
+                break;
+            }
+        }
     }
 
     public String toString() {
