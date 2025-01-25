@@ -8,4 +8,14 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="TemplatesService">
+    <option name="templateFileTypes">
+      <list>
+        <option value="HTML" />
+        <option value="XHTML" />
+        <option value="XML" />
+        <option value="DTD" />
+      </list>
+    </option>
+  </component>
 </module>
