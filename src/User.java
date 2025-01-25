@@ -8,14 +8,17 @@ public class User {
     private String bio;
     private ArrayList<String> projects;
     private String username;
+    private String major;
 
-    public User(String name, String username, String password, String email, String languages) {
+    public User(String name, String username, String password, String email, String languages, String major) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.setLanguages(languages);
         this.bio = "";
         this.projects = new ArrayList<String>();
+        this.username = username;
+        this.major = major;
     }
 
     // Getters
@@ -85,8 +88,11 @@ public class User {
             languagesToString += language + ",";
         }
         languagesToString = languagesToString.substring(0, languagesToString.length() - 1);
-        String userString = name + " " + email + " " + password + " " + languagesToString + " " + bio;
+        String userString = name + " " + email + " " + password + " " + languagesToString + " " + bio + " " + username + " " + major;
         return userString;
     }
 
+    public String getUsername() {
+        return name;
+    }
 }

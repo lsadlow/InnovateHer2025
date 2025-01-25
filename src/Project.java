@@ -60,4 +60,8 @@ public class Project {
         String postToString = name + " " + description + " " + languagesString + " " + poster.getName();
         return postToString;
     }
+
+    public String getName() {
+        return name;
+    }
 }

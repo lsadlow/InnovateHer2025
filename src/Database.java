@@ -121,7 +121,7 @@ public class Database {
             String line = userDataReader.readLine();
             while (line != null) {
                 String[] userParameters = line.split(" ");
-                User toBeAdded = new User(userParameters[0], userParameters[1], userParameters[2], userParameters[3]);
+                User toBeAdded = new User(userParameters[0], userParameters[1], userParameters[2], userParameters[3], userParameters[4], userParameters[5]);
                 userList.add(toBeAdded);
                 line = userDataReader.readLine();
             }
