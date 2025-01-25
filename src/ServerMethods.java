@@ -21,6 +21,8 @@ public class ServerMethods {
             case "Signup":
             case "ADDPROJECT":
                 String addProjectOutcome = addProject(split[1], split[2], split[3], split[4]);  //parameters are project name, description, language list, and username of poster
+            case "REMOVEPROJECT":
+                String removeProjectOutcome = removeProject(split[1]); //parameter is project name
         }
     }
 
@@ -105,6 +107,8 @@ public class ServerMethods {
         try {
             Project toRemove = db.findProject(projectName);
             db.removeProject(projectName);
+            User poster = toRemove.getPoster();
+            poster.removeProject(projectName);
             return "Project Removed Successfully";
         } catch (Exception e) {
             e.printStackTrace();
