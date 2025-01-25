@@ -14,6 +14,7 @@ public class User {
         this.email = email;
         this.setLanguages(languages);
         this.bio = "";
+        this.projects = new ArrayList<String>();
     }
 
     // Getters
@@ -53,7 +54,7 @@ public class User {
     public void setProjects(String projects){
         String[] projectArray = projects.split(",");
         for (int i = 0; i < projectArray.length; i++) {
-            this.languages.add(projectArray[i]);
+            this.projects.add(projectArray[i]);
         }
     }
 
@@ -68,10 +69,9 @@ public class User {
         this.bio = bio;
     }
 
-    public boolean addProject(String projectName){
-        for
-
-        this.languages.add(projectName);
+    // Other methods
+    public void addProject(String projectName){
+        this.projects.add(projectName);
     }
 
     public String toString() {  //for sending to database addUser() method

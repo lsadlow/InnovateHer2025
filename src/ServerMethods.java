@@ -6,7 +6,7 @@ public class ServerMethods {
     //Add project
     //Remove project
 
-    public String buttonServer(String infoSent){
+    public String serverFunctions(String infoSent){
         String[] split = infoSent.split(" ");
         String action = split[0];
         switch(action) {
@@ -18,7 +18,7 @@ public class ServerMethods {
     }
 
     public String signup(String name, String username, String password,String email, String languages){
-        User user = new User(name, )
+        public Stringh
     }
 
 }
