@@ -5,16 +5,13 @@ public class User {
     private String email;
     private String password;
     private ArrayList languages;
-    private String phoneNumber;
     private String bio;
 
-    public User(String name, String email, String password, String displayName, String phoneNumber, String languages, String bio) {
+    public User(String name, String email, String password, String languages) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.phoneNumber = phoneNumber;
         this.setLanguages(languages);
-        this.bio = bio;
     }
 
     public String getName() {
@@ -38,10 +35,6 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
 }
