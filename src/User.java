@@ -82,6 +82,13 @@ public class User {
         this.projects.add(projectName);
     }
 
+    public void removeProject(String projectName) {
+        for(int i = 0; i < this.projects.size(); i++) {
+            if(this.projects.get(i).equals(projectName)) {
+
+            }
+
+
     public String toString() {  //for sending to database addUser() method
         String languagesToString = "";
         for (String language : languages) {
@@ -92,7 +99,4 @@ public class User {
         return userString;
     }
 
-    public String getUsername() {
-        return name;
-    }
 }
