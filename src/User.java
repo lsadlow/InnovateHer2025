@@ -100,4 +100,8 @@ public class User {
         return userString;
     }
 
+    public ArrayList<String> getProjects() {
+        return projects;
+    }
+
 }
