@@ -10,7 +10,7 @@ public class ServerMethods {
     public ServerMethods(Database db) {
         this.db = db;
     }
-    public String serverFunctions(String infoSent){
+    public String serverFunctions(String infoSent) {
         String[] split = infoSent.split(" ");
         String action = split[0];
         switch(action) {
@@ -21,6 +21,8 @@ public class ServerMethods {
             case "ADDUSERLANGUAGES":
                 String userLanguageOutcome = addUserLanguages(split[1], split[2]); //parameters are language list and username
             case "Signup":
+            case "ADDPROJECT":
+                String addProjectOutcome = addProject(split[1], split[2], split[3], split[4]);  //parameters are project name, description, language list, and username of poster
 
 
 
@@ -28,7 +30,7 @@ public class ServerMethods {
         }
     }
 
-    public String signup(String name, String username, String password,String email, String languages){
+    public String signup(String name, String username, String password,String email, String languages) {
 
     }
 
@@ -80,6 +82,19 @@ public class ServerMethods {
             userLanguagesArray.add(language);
         }
         return "Languages Added Successfully";
+    }
+
+    public String addProject(String projectName, String description, String languages, String username) {
+        Project toAdd = new Project(projectName, description, languages, username);
+        try {
+            db.saveProject(toAdd);
+            User projectPoster = db.findUser(username);
+            projectPoster.addProject(projectName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failure";
+        }
+        return "Project Added Successfully";
     }
 
 }
