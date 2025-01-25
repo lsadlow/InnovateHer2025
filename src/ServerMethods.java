@@ -18,7 +18,7 @@ public class ServerMethods {
     }
 
     public String signup(String name, String username, String password,String email, String languages){
-        public Stringh
+
     }
 
 }

@@ -30,22 +30,31 @@ public class Database {
         return projects;
     }
 
-    public boolean confirmProjectName(String projectName){
-        for(int i = 0; i < projects.size(); i++) {
-            if (projects.get(i).getName().equals(projectName)) {
-                return false;
-            }
+    // Confirming methods
+    public String confirmEmail(String email){
+        if(email.contains("@purdue.edu")) {
+            return "Valid username";
+        } else {
+            return "Must be a Purdue username";
         }
-        return true;
     }
 
-    public boolean confirmUsername(String username){
-        for(int i = 0; i < userList.size(); i++) {
-            if (userList.get(i).getUsername().equals(username)){
-                return false;
+    public String confirmProjectName(String projectName){
+        for(int i = 0; i < projects.size(); i++) {
+            if (projects.get(i).getName().equals(projectName)) {
+                return "Project name is already taken";
             }
         }
-        return true;
+        return "Valid project name";
+    }
+
+    public String confirmUsername(String username){
+        for(int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getUsername().equals(username)){
+                return "Username is already taken";
+            }
+        }
+        return "Valid username";
     }
 
     public String confirmPassword(String password) {
@@ -132,7 +141,7 @@ public class Database {
             while (line != null) {
                 String[] projectParameters = line.split(" ");
                 Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2], projectParameters[3]);
-                projectList.add(toBeAdded);
+                projects.add(toBeAdded);
                 line = projectDataReader.readLine();
             }
         } catch (IOException e) {

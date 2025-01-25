@@ -7,8 +7,9 @@ public class User {
     private ArrayList<String> languages;
     private String bio;
     private ArrayList<String> projects;
+    private String username;
 
-    public User(String name, String password, String email, String languages) {
+    public User(String name, String username, String password, String email, String languages) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -20,6 +21,10 @@ public class User {
     // Getters
     public String getName() {
         return name;
+    }
+
+    public String getUsername(){
+        return username;
     }
 
     public String getEmail() {
