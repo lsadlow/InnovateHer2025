@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Project {
     private String description;
-    private ArrayList languages;
+    private ArrayList<String> languages;
     private User poster;
 
     public Project(String description, ArrayList languages, User poster) {

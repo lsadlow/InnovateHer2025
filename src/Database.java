@@ -25,6 +25,7 @@ public class Database {
 
     }
 
+
     public void addUser(User user) {
         userDataWriter.println(user.toString());
         userDataWriter.flush();

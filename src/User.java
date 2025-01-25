@@ -6,15 +6,19 @@ public class User {
     private String password;
     private ArrayList<String> languages;
     private String bio;
+    private ArrayList<String> projects;
+    private String username;
 
-    public User(String name, String email, String password, String languages) {
+    public User(String name, String username, String password, String email, String languages) {
         this.name = name;
-        this.email = email;
+        this.username = username;
         this.password = password;
+        this.email = email;
         this.setLanguages(languages);
         this.bio = "";
     }
 
+    // Getters
     public String getName() {
         return name;
     }
@@ -27,6 +31,42 @@ public class User {
         return languages;
     }
 
+    public String getUsername(){
+        return username;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public String getBio(){
+        return bio;
+    }
+
+    // Setters
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public void setProjects(String projects){
+        String[] projectArray = projects.split(",");
+        for (int i = 0; i < projectArray.length; i++) {
+            this.languages.add(projectArray[i]);
+        }
+    }
+
     public void setLanguages(String languages) {  //input is languages separated by commas (no spaces)
         String[] languageArray = languages.split(",");
         for (int i = 0; i < languageArray.length; i++) {
@@ -36,6 +76,12 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public boolean addProject(String projectName){
+        for
+
+        this.languages.add(projectName);
     }
 
     public String toString() {  //for sending to database addUser() method
