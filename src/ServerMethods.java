@@ -12,7 +12,7 @@ public class ServerMethods {
         switch(action) {
             case "SIGNUP":
                 return signup(split[1], split[2], split[3], split[4], split[5], split[6]);
-              case "LOGIN":
+            case "LOGIN":
                 String outcome = login(split[1], split[2]);
             case "ADDPROJECTLANGUAGES":
                 String projectLanguageOutcome = addProjectLanguages(split[1], split[2]);  //parameters are language list and project name

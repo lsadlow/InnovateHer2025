@@ -10,6 +10,9 @@ public class User {
     private String username;
     private String major;
 
+    private ArrayList<Request> sentRequests;
+    private ArrayList<Request> receivedRequests;
+
     public User(String name, String username, String password, String email, String languages, String major) {
         this.name = name;
         this.password = password;
@@ -102,6 +105,14 @@ public class User {
 
     public ArrayList<String> getProjects() {
         return projects;
+    }
+
+    public void addReceivedRequest(Request request) {
+        receivedRequests.add(request);
+    }
+
+    public void addSentRequest(Request request) {
+        sentRequests.add(request);
     }
 
 }

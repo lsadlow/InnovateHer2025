@@ -5,7 +5,7 @@ import java.io.*;
 public class Project {
     private String name;
     private String description;
-    private ArrayList languages;
+    private ArrayList<String> languages;
     private User poster;
 
     private String username;
