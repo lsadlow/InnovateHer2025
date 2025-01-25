@@ -57,11 +57,8 @@ public class Project {
             languagesString += languages.get(i) + ",";
         }
         languagesString = languagesString.substring(0, languagesString.length() - 1);
-        String postToString = name + " " + description + " " + languagesString + " " + poster.getName();
+        String postToString = name + " " + description + " " + languagesString + " " + poster.getUsername();
         return postToString;
     }
 
-    public String getName() {
-        return name;
-    }
 }
