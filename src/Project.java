@@ -21,6 +21,10 @@ public class Project {
         this.poster = this.findUser(username);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public User findUser(String username) {
         ArrayList<User> userList= db.getUserList();
         for (User user : userList) {
