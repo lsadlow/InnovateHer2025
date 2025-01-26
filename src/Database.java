@@ -255,7 +255,7 @@ public class Database {
             PrintWriter projectFileWriter = new PrintWriter(new FileWriter(projectDataFile));
             if (!(userList == null) & !(projects == null)) {
                 for (User user : userList) {
-                    this.addUser(user);
+                    //newUserList.add(user);
                     userFileWriter.println(user.toString());
                     userFileWriter.flush();
                 }
