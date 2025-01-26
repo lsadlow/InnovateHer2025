@@ -49,6 +49,13 @@ public class ServerMethods {
                 break;
             case "REJECTREQUEST":
                 outcome = rejectRequest(split[1], split[2], split[3]);
+                break;
+            case "SETINVISIBLE":
+                outcome = setInvisible(split[1]);
+                break;
+            case "SETVISIBLE":
+                outcome = setVisible(split[1]);
+                break;
         }
         db.updateDatabase();
         return outcome;
@@ -232,5 +239,17 @@ public class ServerMethods {
             }
         }
         return "Successfully Rejected";
+    }
+
+    public String setInvisible(String projectName) {
+        Project project = db.findProject(projectName);
+        project.makeInvisible();
+        return "Set Invisible";
+    }
+
+    public String setVisible(String projectName) {
+        Project project = db.findProject(projectName);
+        project.makeVisible();
+        return "Set Visible";
     }
 }
