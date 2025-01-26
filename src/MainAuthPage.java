@@ -19,21 +19,21 @@ import java.awt.event.ActionListener;
 
 public class MainAuthPage {
 
-//    private Client client;
-//    private PrintWriter output;
-//    private BufferedReader bfr;
-//
-//    public MainAuthPage(Client client) {
-//        this.client = client;
-//        this.output = client.getOutput();
-//        this.bfr = client.getBfr();
-//
-//        start();
-//    }
+    private Client client;
+    private DataOutputStream output;
+    private DataInputStream bfr;
+
+    public MainAuthPage(Client client) {
+        this.client = client;
+        this.output = client.getDos();
+        this.bfr = client.getDis();
+
+      start();
+   }
 
 
     // main page (login, sign up)
-    public static void start() {
+    public  void start() {
 
         /*
 
@@ -179,7 +179,7 @@ public class MainAuthPage {
 
 
     // login details (server code 2)
-    private static void login() {
+    private void login() {
 
         JFrame frame = new JFrame("Log In") ;
         frame.setLayout(new FlowLayout( FlowLayout.CENTER , 10 ,0));
@@ -277,7 +277,7 @@ public class MainAuthPage {
 
 
         // instantiate HomePageGUI to use its methods
-        // HomePage homePage = new HomePage(client);
+        HomePage homePage = new HomePage(client);
 
         controlPanel.add(loginButton) ;
         controlPanel.add(backButton) ;
@@ -289,45 +289,48 @@ public class MainAuthPage {
         frame.setVisible(true);
 
 
-//        // action listeners
-//        loginButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                try {
-//                    output.println("2");
-//
-//                    output.println(usernameFeild.getText());
-//                    output.println(new String(passwordFeild.getText())) ;
-//                    UserManager userManager = new UserManager() ;
-//                    User thisUser = userManager.getUser(usernameFeild.getText()) ;
-//                    client.user = thisUser ;
-//                    // server response
-//                    String serverResponse = bfr.readLine();
-//                    if (serverResponse.equals("true")) {
-//                        frame.dispose();
-//                        homePage.showHomePage(thisUser);
-//                    } else {
-//                        JOptionPane.showMessageDialog(frame, "Login failed. Please check that username and password are correct.");
-//                    }
-//                } catch (IOException ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        });
-//        backButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                frame.dispose();
-//                start();
-//            }
-//        });
+        // action listeners
+       loginButton.addActionListener(new ActionListener() {
+            @Override
+        public void actionPerformed(ActionEvent e) {
+                try {
+
+                    output.writeUTF("2\n");
+                    output.writeUTF(usernameFeild.getText() + "\n");
+                    output.writeUTF(new String(passwordFeild.getText()) + "\n") ;
+                    Database database = new Database();
+                    User thisUser = database.findUser(usernameFeild.getText()) ;
+                    client.user = thisUser ;
+                    // server response
+                    String serverResponse = bfr.readLine();
+                    if (serverResponse.equals("true")) {
+                        frame.dispose();
+                        homePage.showHomePage(thisUser);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Login failed. Please check that username and password are correct.");
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                start();
+            }
+        });
+
 
 
     }
 
 
+
+
     // signup details (server code 1)
-    private static void signUp() {
+    private void signUp() {
 
         // create a frame
         JFrame frame = new JFrame("Sign Up");
@@ -493,47 +496,43 @@ public class MainAuthPage {
         frame.add(topPanel);
         frame.setVisible(true);
 
-//        // action listeners
-//        signUpButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//                try {
-//                    output.println("1");
-//                    output.println(firstNameFeild.getText());
-//                    output.println(lastNameFeild.getText());
-//                    output.println(phoneFeild.getText());
-//                    output.println(emailFeild.getText());
-//                    output.println(usernameFeild.getText());
-//                    output.println(passwordFeild.getText());
-//                    output.println(confirmFeild.getText());
-//                    // server response
-//                    String serverResponse = bfr.readLine();
-//                    if (serverResponse.equals("true")) {
-//                        JOptionPane.showMessageDialog(frame, "Signup successful!");
-//                        frame.dispose();
-//                        start();
-//                    } else {
-//                        JOptionPane.showMessageDialog(frame, "Invalid Entry! Username already exists.");
-//                    }
-//                } catch (IOException ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        });
-//        backButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                frame.dispose();
-//                start();
-//            }
-//        });
-//
-   }
+    // action listeners
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+               // Signup : "SIGNUP " + name + " " + username + " " + password + " " + email + " " + languages + " " + major + " " + confirmPassword                try {
+                    output.writeUTF("1\n");
+                    output.writeUTF(firstNameFeild.getText() + "\n");
+                    output.writeUTF(usernameFeild.getText() + "\n");
+                    output.writeUTF(passwordFeild.getText() + "\n");
+                    output.writeUTF(emailFeild.getText() + "\n");
+                    output.writeUTF(skillsFeild.getText() + "\n");
+                    output.writeUTF(majorFeild.getText() + "\n");
+                    output.writeUTF(confirmFeild.getText() + "\n");
+                    // server response
+                    String serverResponse = bfr.readLine();
+                    if (serverResponse.equals("true")) {
+                        JOptionPane.showMessageDialog(frame, "Signup successful!");
+                        frame.dispose();
+                        start();
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Invalid Entry! Username already exists.");
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                start();
+            }
+        });
 
-    public static void main(String[] args) {
-        start() ;
-    }
+   }
 
 
 }

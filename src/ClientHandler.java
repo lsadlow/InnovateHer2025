@@ -32,8 +32,7 @@ class ClientHandler extends Thread
         {
             try {
                 // Ask user what he wants
-                GUI gui = new GUI(dis, dos);
-                SwingUtilities.invokeLater(gui);
+
 
                 dos.writeUTF("client handler working");
                 dos.flush();

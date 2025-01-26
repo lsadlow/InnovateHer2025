@@ -7,52 +7,7 @@ public class ServerMethods {
         this.db = db;
     }
 
-    public String serverFunctions(String infoSent) {
-        String[] split = infoSent.split(" ");
-        String action = split[0];
-        String outcome = "";
-        switch (action) {
-            case "SIGNUP":
-                outcome = signup(split[1], split[2], split[3], split[4], split[5], split[6], split[7]);
-                break;
-            case "LOGIN":
-                outcome = login(split[1], split[2]);
-                break;
-            case "ADDPROJECTLANGUAGES":
-                outcome = addProjectLanguages(split[1], split[2]);  //parameters are language list and project name
-                break;
-            case "ADDUSERLANGUAGES":
-                outcome = addUserLanguages(split[1], split[2]); //parameters are language list and username
-                break;
-            case "ADDPROJECTOWNED":
-                outcome = addProjectOwned(split[1], split[2], split[3], split[4]);  //parameters are project name,
-                // description, language list, and username of poster
-                break;
-            case "ADDPROJECTON":
-                outcome = addProjectOn(split[1], split[2], split[3], split[4]);  //parameters are project name,
-                // description, language list, and username of poster
-                break;
-            case "REMOVEPROJECT":
-                outcome = db.removeProject(split[1]);
-                break;
-            case "CHANGEUSERNAME":
-                outcome = changeUsername(split[1], split[2]);
-                break;
-            case "CHANGEPASSWORD":
-                outcome = changePassword(split[1], split[2]);
-                break;
-            case "ADDBIO":
-                outcome = addBio(split[1],split[2]);
-                break;
-            case "ACCEPTREQUEST":
-                outcome = acceptRequest(split[1], split[2], split[3]);
-                break;
-            case "REJECTREQUEST":
-                outcome = rejectRequest(split[1], split[2], split[3]);
-        }
-        db.updateDatabase();
-        return outcome;
-    }
+
 
     // Signup and login
 
