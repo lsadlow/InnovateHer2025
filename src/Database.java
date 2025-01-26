@@ -50,6 +50,9 @@ public class Database {
     }
 
     public String confirmProjectName(String projectName) {
+        if(projects == null) {
+            return "Valid project name.";
+        }
         for (int i = 0; i < projects.size(); i++) {
             if (projects.get(i).getName().equals(projectName)) {
                 return "Project name is already taken";
@@ -59,6 +62,9 @@ public class Database {
     }
 
     public String confirmUsername(String username) {
+        if(userList == null) {
+            return "Valid username. ";
+        }
         for (int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getUsername().equals(username)) {
                 return "Username is already taken. ";
@@ -198,6 +204,9 @@ public class Database {
         }
         User poster = toRemove.getPoster();
         poster.removeProjectOwned(projectName);
+        if(toRemove.getCollaborators() == null) {
+            return "Error";
+        }
         for (int i = 0; i < toRemove.getCollaborators().size(); i++) {
             User user = findUser(toRemove.getCollaborators().get(i));
             user.removeProjectOn(projectName);
