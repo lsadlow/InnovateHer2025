@@ -46,9 +46,9 @@ public class ServerMethods {
             case "CHANGEPASSWORD":
                 outcome = changePassword(split[1], split[2]);
                 break;
-            case "ADDBIO":
+            /* case "ADDBIO":
                 outcome = addBio(split[1],split[2]);
-                break;
+                break; */
             case "SENDREQUEST":
                 outcome = sendRequest(split[1], split[2], split[3]);
                 break;
@@ -67,6 +67,7 @@ public class ServerMethods {
         }
         db.updateDatabase();
         System.out.println("Outcome: "  + outcome);
+
         return outcome;
     }
 
@@ -91,7 +92,7 @@ public class ServerMethods {
         } catch (Exception e) {
             // Catch any unexpected exceptions and return a failure message
             e.printStackTrace();
-            return "Signup failed due to an internal error.";
+            return "Failure";
 
         }
     }
@@ -231,12 +232,12 @@ public class ServerMethods {
         }
     }
 
-    public String addBio(String username, String bio) {
+    /* public String addBio(String username, String bio) {
         User user = db.findUser(username);
         bio = bio.replace("`", " ");
         user.setBio(bio);
         return "Bio added";
-    }
+    } */
 
     // Send, accept, and deny requests
 

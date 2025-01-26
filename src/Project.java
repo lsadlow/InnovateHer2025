@@ -120,12 +120,20 @@ public class Project {
         for (int i = 0; i < languages.size(); i++) {
             languagesString += languages.get(i) + ",";
         }
-        languagesString = languagesString.substring(0, languagesString.length() - 1);
+        if (languagesString.length() <= 1) {
+            languagesString = " ";
+        } else {
+            languagesString = languagesString.substring(0, languagesString.length() - 1);
+        }
         String collaboratorsString = "";
         for (int i = 0; i < collaborators.size(); i++) {
             collaboratorsString += collaborators.get(i) + ",";
         }
-        collaboratorsString = collaboratorsString.substring(0, collaboratorsString.length() - 1);
+        if (collaboratorsString.length() <= 1) {
+            collaboratorsString = " ";
+        } else {
+            collaboratorsString = collaboratorsString.substring(0, collaboratorsString.length() - 1);
+        }
         String postToString = name + ";" + description + ";" + languagesString + ";" + poster.getUsername() +";" + collaboratorsString;
         return postToString;
     }

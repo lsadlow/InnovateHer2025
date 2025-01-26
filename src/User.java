@@ -5,7 +5,6 @@ public class User {
     private String email;
     private String password;
     private ArrayList<String> languages;
-    private String bio;
     private ArrayList<String> projectsOwned;
     private ArrayList<String> projectsOn;
     private String username;
@@ -20,7 +19,6 @@ public class User {
         this.email = email;
         this.languages = new ArrayList<String>();
         this.setLanguages(languages);
-        this.bio = "";
         this.projectsOwned = setProjectsOwned(projectsOwned);
         this.projectsOn = setProjectsOn(projectsOn);
         this.sentRequests = new ArrayList<Request>();
@@ -56,10 +54,6 @@ public class User {
         return password;
     }
 
-    public String getBio(){
-        return bio;
-    }
-
     public ArrayList<String> getProjectsOwned() {
         return projectsOwned;
     }
@@ -93,7 +87,10 @@ public class User {
         this.email = email;
     }
 
-    public ArrayList<String> setProjectsOwned(String projects){
+    public ArrayList<String> setProjectsOwned(String projects) {
+        if (projects.equals(" ")) {
+            return new ArrayList<String>();
+        }
         String[] projectArray = projects.split(",");
         ArrayList<String> projectsOwnedList = new ArrayList<>();
         for (int i = 0; i < projectArray.length; i++) {
@@ -102,7 +99,10 @@ public class User {
         return projectsOwnedList;
     }
 
-    public ArrayList<String> setProjectsOn(String projects){
+    public ArrayList<String> setProjectsOn(String projects) {
+        if (projects.equals(" ")) {
+            return new ArrayList<String>();
+        }
         String[] projectArray = projects.split(",");
         ArrayList<String> projectsOnList = new ArrayList<>();
         for (int i = 0; i < projectArray.length; i++) {
@@ -112,7 +112,7 @@ public class User {
     }
 
     public void setLanguages(String languages) {  //input is languages separated by commas (no spaces)
-        if(languages.isEmpty() || languages == null) {
+        if (languages.length() <= 1) {
             return;
         }
         String[] languageArray = languages.split(",");
@@ -120,10 +120,6 @@ public class User {
         for (int i = 0; i < languageArray.length; i++) {
             this.languages.add(languageArray[i]);
         }
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
     }
 
     public void setProjectsOwned(ArrayList<String> projects) {
@@ -167,27 +163,47 @@ public class User {
         for (String language : languages) {
             languagesToString += language + ",";
         }
-        languagesToString = languagesToString.substring(0, languagesToString.length() - 1);
-        String userString = name + ";" + username+ ";" + password + ";" + email + ";" + languagesToString + ";" + bio  + ";" + major + ";";
+        if (languagesToString.length() <= 1) {
+            languagesToString = " ";
+        } else {
+            languagesToString = languagesToString.substring(0, languagesToString.length() - 1);
+        }
+        String userString = name + ";" + username + ";" + password + ";" + email + ";" + languagesToString + ";" + major + ";";
+        String projectsOwnedString = "";
         for (int i = 0; i < projectsOwned.size(); i++) {
-            userString += projectsOwned.get(i) + ",";
+            projectsOwnedString += projectsOwned.get(i) + ",";
         }
-        userString = userString.substring(0, userString.length() - 1);
-        userString += ";";
+        if (projectsOwnedString.length() <= 1) {
+            projectsOwnedString = " ";
+        } else {
+            projectsOwnedString = projectsOwnedString.substring(0, projectsOwnedString.length() - 1);
+        }
+        String projectsOnString = "";
         for (int i = 0; i < projectsOn.size(); i++) {
-            userString += projectsOn.get(i) + ",";
+            projectsOnString += projectsOn.get(i) + ",";
         }
-        userString = userString.substring(0, userString.length() - 1);
-        userString += ";";
+        if (projectsOnString.length() <= 1) {
+            projectsOnString = " ";
+        } else {
+            projectsOnString = projectsOnString.substring(0, projectsOnString.length() - 1);
+        }
+        userString = userString + projectsOwnedString + ";" + projectsOnString + ";";
         for (int i = 0; i < sentRequests.size(); i++) {
             userString += sentRequests.get(i) + ",";
         }
-        userString = userString.substring(0, userString.length() - 1);
+        if (sentRequests.size() == 0)
+            userString += " ";
+        else
+            userString = userString.substring(0, userString.length() - 1);
         userString += ";";
         for (int i = 0; i < receivedRequests.size(); i++) {
             userString += receivedRequests.get(i) + ",";
         }
-        userString = userString.substring(0, userString.length() - 1);
+        if (receivedRequests.size() <= 1)
+            userString += " ";
+        else
+            userString = userString.substring(0, userString.length() - 1);
+        userString += ";";
         return userString;
     }
 
@@ -208,6 +224,9 @@ public class User {
     }
 
     public ArrayList<Request> setSentRequests(String requests) {
+        if (requests.equals(" ")) {
+            return new ArrayList<Request>();
+        }
         String[] requestArray = requests.split(",");
         ArrayList<Request> sentRequestList = new ArrayList<Request>();
         for (int i = 0; i < requestArray.length; i++) {
@@ -218,6 +237,9 @@ public class User {
     }
 
     public ArrayList<Request> setReceivedRequests(String requests) {
+        if (requests.equals(" ")) {
+            return new ArrayList<Request>();
+        }
         String[] requestArray = requests.split(",");
         ArrayList<Request> receivedRequestList= new ArrayList<Request>();
         for (int i = 0; i < requestArray.length; i++) {
