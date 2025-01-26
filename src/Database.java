@@ -62,18 +62,24 @@ public class Database {
     }
 
     public String confirmUsername(String username) {
-        if(userList == null) {
-            return "Valid username. ";
-        }
-        for (int i = 0; i < userList.size(); i++) {
-            if (userList.get(i).getUsername().equals(username)) {
-                return "Username is already taken. ";
+
+        if (userList == null) {
+            return "" ;
+        } else {
+            for (int i = 0; i < userList.size(); i++) {
+                if (userList.get(i).getUsername().equals(username)) {
+                    return "Username is already taken. ";
+                }
+
             }
         }
+
         return "";
     }
 
     public String confirmPassword(String password, String confirmPassword) {
+        System.out.println(password);
+        System.out.println(confirmPassword);
         boolean uppercase = false;
         boolean lowercase = false;
         boolean number = false;
@@ -113,6 +119,8 @@ public class Database {
         if (password.length() < 8 || password.length() > 15) {
             issues += "Password must be between 8 and 15 characters long. ";
         }
+
+        System.out.println("Password:" + password + "CP :" + confirmPassword);
 
         if (!(password.equals(confirmPassword))) {
             issues += "Confirm password does not match. ";

@@ -503,18 +503,19 @@ public class MainAuthPage {
             public void actionPerformed(ActionEvent e) {
                 try{
                // Signup : "SIGNUP " + name + " " + username + " " + password + " " + email + " " + languages + " " + major + " " + confirmPassword                try {
-                    String outputString = "SIGNUP" + firstNameFeild.getText() + usernameFeild.getText() + passwordFeild.getText() + emailFeild.getText() + skillsFeild.getText() + majorFeild.getText() + confirmFeild.getText()  + "\n";
+                    String outputString = "SIGNUP" + " " + firstNameFeild.getText().trim() + " " + usernameFeild.getText().trim() + " " +
+                            passwordFeild.getText().trim() + " " + emailFeild.getText().trim() + " " +
+                            skillsFeild.getText().replace(" ", "`") + " " + majorFeild.getText().replace(" ", "`") + " " +
+                            confirmFeild.getText().trim();
                     output.writeUTF(outputString);
                     // server response
                     String serverResponse = bfr.readLine();
                     System.out.println(serverResponse);
-                    if (serverResponse.equals("true")) {
-                        JOptionPane.showMessageDialog(frame, "Signup successful!");
+
+                        JOptionPane.showMessageDialog(frame, serverResponse);
                         frame.dispose();
                         start();
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Invalid Entry! Username already exists.");
-                    }
+
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

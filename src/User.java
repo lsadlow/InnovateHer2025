@@ -106,8 +106,12 @@ public class User {
         return projectsOnList;
     }
 
-    public void setLanguages(String languages) {  //input is languages separated by commas (no spaces)
-        String[] languageArray = languages.split(",");
+    public void setLanguages(String skills) {  //input is languages separated by commas (no spaces)
+        if (skills == null || skills.isEmpty()) {
+            return ;
+        }
+        String[] languageArray = skills.split(",");
+
         for (int i = 0; i < languageArray.length; i++) {
             this.languages.add(languageArray[i]);
         }
