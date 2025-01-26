@@ -9,8 +9,6 @@ public class Client {
 
     public User user ;
 
-
-
     public Client(String address, int port) {
         try {
             // Establish connection

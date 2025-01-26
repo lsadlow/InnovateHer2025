@@ -1,27 +1,65 @@
-Signup : "SIGNUP " + name + " " + username + " " + password + " " + email + " " + languages + " " + major + " " + confirmPassword
+Signup :
+name = name.trim();
+username = username.trim();
+password = password.trim();
+email = email.trim();
+languages = languages.trim();
+major = major.replace(" ", "`")
+confirmPassword = confirmPassword.trim();
+"SIGNUP " + name + " " + username + " " + password + " " + email + " " + languages + " " + major + " " + confirmPassword
 
-Login: "LOGIN " + username + " " + password
+Login:
+username = username.trim();
+password = password.trim();
+"LOGIN " + username + " " + password
 
-Add project language: "ADDPROJECTLANGUAGES " + languages + " " + projectLanguages
+Add project language:
+languages = languages.trim();
+projectName = projectName.replace(" ", "`");
+"ADDPROJECTLANGUAGES " + languages + " " + projectName
 
-Add user languages: "ADDUSERLANGUAGED " + userLanguages + " " + username
+Add user languages:
+userLanguages = userLanguages.trim();
+"ADDUSERLANGUAGED " + userLanguages + " " + username
 
-Add project owned: "ADDPROJECTOWNED " + projectName + " " + description + " " + languages + " " + username
+Add project owned:
+description = description.replace(" ", "`");
+projectName = projectName.replace(" ", "`");
+"ADDPROJECTOWNED " + projectName + " " + description + " " + languages + " " + username
 
-Add project on: "ADDPROJECTON " + projectName + " " + description + " " + languages + " " + username
+Add project on:
+description = description.replace(" ", "`");
+projectName = projectName.replace(" ", "`");
+"ADDPROJECTON " + projectName + " " + description + " " + languages + " " + username
 
-Remove project: "REMOVEPROJECT " + projectName
+Remove project:
+projectName = projectName.replace(" ", "`");
+"REMOVEPROJECT " + projectName
 
-Change username: "CHANGEUSERNAME " + currentUsername + " " + newUsername
+Change username:
+newUsername = newUsername.trim();
+"CHANGEUSERNAME " + currentUsername + " " + newUsername
 
-Change password: "CHANGEPASSWORD " + currentUsername + " " + newPassword
+Change password:
+newPassword = newPassword.trim();
+"CHANGEPASSWORD " + currentUsername + " " + newPassword
 
-Add bio: "ADDBIO " + username + " " + bio
+Add bio:
+bio = bio.replace(" ", "`");
+"ADDBIO " + username + " " + bio
 
-Accept request: "ACCEPTREQUEST " + ownerUsername + " " + projectName + " " + requesterUsername
+Accept request:
+projectName = projectName.replace(" ", "`");
+"ACCEPTREQUEST " + ownerUsername + " " + projectName + " " + requesterUsername
 
-Reject request: "REJECTREQUEST " + ownerUsername + " " + projectName + " " + requesterUsername
+Reject request:
+projectName = projectName.replace(" ", "`");
+"REJECTREQUEST " + ownerUsername + " " + projectName + " " + requesterUsername
 
-Set invisible: "SETINVISIBLE " + projectName
+Set invisible:
+projectName = projectName.replace(" ", "`");
+"SETINVISIBLE " + projectName
 
-Set visible: "SETVISIBLE " + projectName
+Set visible:
+projectName = projectName.replace(" ", "`");
+"SETVISIBLE " + projectName

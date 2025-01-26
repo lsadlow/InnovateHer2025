@@ -7,9 +7,6 @@ public class ServerMethods {
         this.db = db;
     }
 
-
-
-
     public String serverFunctions(String infoSent) {
         db.loadProjects();
         db.loadUsers();
@@ -38,7 +35,7 @@ public class ServerMethods {
                 // description, language list, and username of poster
                 break;
             case "REMOVEPROJECT":
-                outcome = db.removeProject(split[1]);
+                outcome = removeProject(split[1]);
                 break;
             case "CHANGEUSERNAME":
                 outcome = changeUsername(split[1], split[2]);
@@ -72,12 +69,12 @@ public class ServerMethods {
     public String signup(String name, String username, String password,String email, String languages, String major,
                          String confirmPassword){
         String result = db.confirmSignup(email, username, password, confirmPassword);
+        major = major.replace("`", " ");
         if(result.equals("Signup successful!")) {
             User user = new User(name, username, password, email, languages, major, "", "", "", "");
             db.addUser(user);
         }
         return result;
-
     }
 
     public String login(String username, String password) {
@@ -96,6 +93,7 @@ public class ServerMethods {
         String[] languagesArray = languages.split(",");
         ArrayList<String> projectLanguages = null;
         Project projectToEdit = null;
+        projectName = projectName.replace("`", " ");
         try {
             projectToEdit = db.findProject(projectName);
             projectLanguages = projectToEdit.getLanguages();
@@ -135,6 +133,8 @@ public class ServerMethods {
     // add/remove projects
 
     public String addProjectOwned(String projectName, String description, String languages, String username) {
+        description = description.replace("`", " ");
+        projectName = projectName.replace("`", " ");
         if (db.confirmProjectName(projectName).equals("Project name is already taken")) {
             return "Project name is already taken";
         }
@@ -151,6 +151,8 @@ public class ServerMethods {
     }
 
     public String addProjectOn(String projectName, String description, String languages, String username) {
+        description = description.replace("`", " ");
+        projectName = projectName.replace("`", " ");
         Project toAdd = new Project(projectName, description, languages, username, "");
         try {
             db.saveProject(toAdd);
@@ -164,6 +166,7 @@ public class ServerMethods {
     }
 
     public String removeProject(String projectName) {
+        projectName = projectName.replace("`", " ");
         try {
             Project toRemove = db.findProject(projectName);
             db.removeProject(projectName);
@@ -206,6 +209,7 @@ public class ServerMethods {
 
     public String addBio(String username, String bio) {
         User user = db.findUser(username);
+        bio = bio.replace("`", " ");
         user.setBio(bio);
         return "Bio added";
     }
@@ -215,6 +219,7 @@ public class ServerMethods {
     public String acceptRequest(String ownerUsername, String projectName, String requesterUsername) {
         User owner = db.findUser(ownerUsername);
         User requester = db.findUser(requesterUsername);
+        projectName = projectName.replace("`", " ");
         for(int i = 0; i < owner.getReceivedRequests().size(); i++) {
             if((owner.getReceivedRequests().get(i).getSender().getUsername().equals(requesterUsername)) &&
                     owner.getReceivedRequests().get(i).getProjectName().equals(projectName)) {
@@ -233,6 +238,7 @@ public class ServerMethods {
     public String rejectRequest(String ownerUsername, String projectName, String requesterUsername) {
         User owner = db.findUser(ownerUsername);
         User requester = db.findUser(requesterUsername);
+        projectName = projectName.replace("`", " ");
         for(int i = 0; i < owner.getReceivedRequests().size(); i++) {
             if((owner.getReceivedRequests().get(i).getSender().getUsername().equals(requesterUsername)) &&
                     owner.getReceivedRequests().get(i).getProjectName().equals(projectName)) {
@@ -248,12 +254,14 @@ public class ServerMethods {
     }
 
     public String setInvisible(String projectName) {
+        projectName = projectName.replace("`", " ");
         Project project = db.findProject(projectName);
         project.makeInvisible();
         return "Set Invisible";
     }
 
     public String setVisible(String projectName) {
+        projectName = projectName.replace("`", " ");
         Project project = db.findProject(projectName);
         project.makeVisible();
         return "Set Visible";
