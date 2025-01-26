@@ -30,8 +30,12 @@ public class ServerMethods {
                 break;
             case "REMOVEPROJECT":
                 outcome = db.removeProject(split[1]);
+                break;
             case "CHANGEUSERNAME":
                 outcome = changeUsername(split[1], split[2]);
+                break;
+            case "CHANGEPASSWORD":
+                outcome = changePassword(split[1], split[2]);
 
         }
         db.updateDatabase();
@@ -136,5 +140,17 @@ public class ServerMethods {
             return "Failure";
         }
     }
+
+    public String changePassword(String currentUsername, String newPassword) {
+        try {
+            User toChange = db.findUser(currentUsername);
+            toChange.setPassword(newPassword);
+            return "Password Changed Successfully";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failure";
+        }
+    }
+
 
 }
