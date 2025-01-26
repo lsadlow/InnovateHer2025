@@ -230,8 +230,24 @@ public class Database {
         }
     }
 
-    public void editUsername(User user, String newUsername) {
-
+    public void updateDatabase() {
+        try {
+            userDataFile = new File("users.txt");
+            projectDataFile = new File("projects.txt");
+            PrintWriter userFileWriter = new PrintWriter(new FileWriter(userDataFile));
+            PrintWriter projectFileWriter = new PrintWriter(new FileWriter(projectDataFile));
+            for (User user : userList) {
+                this.addUser(user);
+                userFileWriter.println(user.toString());
+                userFileWriter.flush();
+            }
+            for (Project project : projects) {
+                projectFileWriter.println(project.toString());
+                projectFileWriter.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -31,9 +31,10 @@ public class ServerMethods {
             case "REMOVEPROJECT":
                 outcome = db.removeProject(split[1]);
             case "CHANGEUSERNAME":
-                outcome =
+                outcome = changeUsername(split[1], split[2]);
 
         }
+        db.updateDatabase();
         return outcome;
     }
 
@@ -129,7 +130,10 @@ public class ServerMethods {
         try {
             User toChange = db.findUser(currentUsername);
             toChange.setUsername(newUsername);
-
+            return "Username Changed Successfully";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failure";
         }
     }
 
