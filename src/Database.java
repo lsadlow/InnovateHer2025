@@ -130,7 +130,7 @@ public class Database {
             String line = userDataReader.readLine();
             while (line != null) {
                 String[] userParameters = line.split(";");
-                User toBeAdded = new User(userParameters[0], userParameters[1], userParameters[2], userParameters[3], userParameters[4], userParameters[5]);
+                User toBeAdded = new User(userParameters[0], userParameters[1], userParameters[2], userParameters[3], userParameters[4], userParameters[5], userParameters[6], userParameters[7], userParameters[8], userParameters[9]);
                 userList.add(toBeAdded);
                 line = userDataReader.readLine();
             }
@@ -150,7 +150,7 @@ public class Database {
             String line = projectDataReader.readLine();
             while (line != null) {
                 String[] projectParameters = line.split(";");
-                Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2], projectParameters[3]);
+                Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2], projectParameters[3], projectParameters[4]);
                 projects.add(toBeAdded);
                 line = projectDataReader.readLine();
             }

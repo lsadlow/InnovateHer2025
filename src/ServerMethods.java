@@ -9,13 +9,71 @@ public class ServerMethods {
 
 
 
+
+    public String serverFunctions(String infoSent) {
+        db.loadProjects();
+        db.loadUsers();
+        String[] split = infoSent.split(" ");
+        String action = split[0];
+        String outcome = "";
+        switch (action) {
+            case "SIGNUP":
+                outcome = signup(split[1], split[2], split[3], split[4], split[5], split[6], split[7]);
+                break;
+            case "LOGIN":
+                outcome = login(split[1], split[2]);
+                break;
+            case "ADDPROJECTLANGUAGES":
+                outcome = addProjectLanguages(split[1], split[2]);  //parameters are language list and project name
+                break;
+            case "ADDUSERLANGUAGES":
+                outcome = addUserLanguages(split[1], split[2]); //parameters are language list and username
+                break;
+            case "ADDPROJECTOWNED":
+                outcome = addProjectOwned(split[1], split[2], split[3], split[4]);  //parameters are project name,
+                // description, language list, and username of poster
+                break;
+            case "ADDPROJECTON":
+                outcome = addProjectOn(split[1], split[2], split[3], split[4]);  //parameters are project name,
+                // description, language list, and username of poster
+                break;
+            case "REMOVEPROJECT":
+                outcome = db.removeProject(split[1]);
+                break;
+            case "CHANGEUSERNAME":
+                outcome = changeUsername(split[1], split[2]);
+                break;
+            case "CHANGEPASSWORD":
+                outcome = changePassword(split[1], split[2]);
+                break;
+            case "ADDBIO":
+                outcome = addBio(split[1],split[2]);
+                break;
+            case "ACCEPTREQUEST":
+                outcome = acceptRequest(split[1], split[2], split[3]);
+                break;
+            case "REJECTREQUEST":
+                outcome = rejectRequest(split[1], split[2], split[3]);
+                break;
+            case "SETINVISIBLE":
+                outcome = setInvisible(split[1]);
+                break;
+            case "SETVISIBLE":
+                outcome = setVisible(split[1]);
+                break;
+        }
+        db.updateDatabase();
+        return outcome;
+    }
+
+
     // Signup and login
 
     public String signup(String name, String username, String password,String email, String languages, String major,
                          String confirmPassword){
         String result = db.confirmSignup(email, username, password, confirmPassword);
         if(result.equals("Signup successful!")) {
-            User user = new User(name, username, password, email, languages, major);
+            User user = new User(name, username, password, email, languages, major, "", "", "", "");
             db.addUser(user);
         }
         return result;
@@ -80,7 +138,7 @@ public class ServerMethods {
         if (db.confirmProjectName(projectName).equals("Project name is already taken")) {
             return "Project name is already taken";
         }
-        Project toAdd = new Project(projectName, description, languages, username);
+        Project toAdd = new Project(projectName, description, languages, username, "");
         try {
             db.saveProject(toAdd);
             User projectPoster = db.findUser(username);
@@ -93,7 +151,7 @@ public class ServerMethods {
     }
 
     public String addProjectOn(String projectName, String description, String languages, String username) {
-        Project toAdd = new Project(projectName, description, languages, username);
+        Project toAdd = new Project(projectName, description, languages, username, "");
         try {
             db.saveProject(toAdd);
             User projectPoster = db.findUser(username);
@@ -187,5 +245,17 @@ public class ServerMethods {
             }
         }
         return "Successfully Rejected";
+    }
+
+    public String setInvisible(String projectName) {
+        Project project = db.findProject(projectName);
+        project.makeInvisible();
+        return "Set Invisible";
+    }
+
+    public String setVisible(String projectName) {
+        Project project = db.findProject(projectName);
+        project.makeVisible();
+        return "Set Visible";
     }
 }

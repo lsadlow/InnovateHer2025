@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.io.*;
-import java.text.*;
-import java.util.*;
 import java.net.*;
 
 // ClientHandler class
@@ -31,7 +29,7 @@ class ClientHandler extends Thread
         while (true)
         {
             try {
-                // Ask user what he wants
+                // Ask user what she wants
 
 
                 dos.writeUTF("client handler working");
@@ -39,7 +37,6 @@ class ClientHandler extends Thread
 
                 // receive the answer from client
                 received = dis.readUTF();
-
 
                 if(received.equals("Exit"))
                 {
