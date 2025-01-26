@@ -7,7 +7,12 @@ public class ServerMethods {
         this.db = db;
     }
 
+
+
+
     public String serverFunctions(String infoSent) {
+        db.loadProjects();
+        db.loadUsers();
         String[] split = infoSent.split(" ");
         String action = split[0];
         String outcome = "";
@@ -60,6 +65,7 @@ public class ServerMethods {
         db.updateDatabase();
         return outcome;
     }
+
 
     // Signup and login
 
