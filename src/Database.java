@@ -231,14 +231,18 @@ public class Database {
             projectDataFile = new File("projects.txt");
             PrintWriter userFileWriter = new PrintWriter(new FileWriter(userDataFile));
             PrintWriter projectFileWriter = new PrintWriter(new FileWriter(projectDataFile));
-            for (User user : userList) {
-                this.addUser(user);
-                userFileWriter.println(user.toString());
-                userFileWriter.flush();
-            }
-            for (Project project : projects) {
-                projectFileWriter.println(project.toString());
-                projectFileWriter.flush();
+            if (!(userList == null) & !(projects == null)) {
+
+
+                for (User user : userList) {
+                    this.addUser(user);
+                    userFileWriter.println(user.toString());
+                    userFileWriter.flush();
+                }
+                for (Project project : projects) {
+                    projectFileWriter.println(project.toString());
+                    projectFileWriter.flush();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
