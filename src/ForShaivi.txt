@@ -1,5 +1,5 @@
 Signup :
-name = name.trim();
+name = name.replace(" ", "`");
 username = username.trim();
 password = password.trim();
 email = email.trim();

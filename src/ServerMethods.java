@@ -92,6 +92,7 @@ public class ServerMethods {
             // Catch any unexpected exceptions and return a failure message
             e.printStackTrace();
             return "Signup failed due to an internal error.";
+
         }
     }
 
