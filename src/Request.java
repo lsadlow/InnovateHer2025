@@ -29,14 +29,18 @@ public class Request {
 
     public void rejectRequest() {
         this.status = "rejected";
+        sender.removeSentRequest(this);
+        projectOwner.removeReceivedRequest(this);
     }
 
     public void acceptRequest() {
         this.status = "accepted";
         this.sender.addProjectOn(projectName);
+        projectOwner.removeReceivedRequest(this);
+        sender.removeSentRequest(this);
     }
 
     public String toString() {
-        return "" + sender + " " + status;
+        return "" + sender + "," + projectName + "," + message;
     }
 }

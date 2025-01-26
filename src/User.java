@@ -14,14 +14,16 @@ public class User {
     private ArrayList<Request> sentRequests;
     private ArrayList<Request> receivedRequests;
 
-    public User(String name, String username, String password, String email, String languages, String major) {
+    public User(String name, String username, String password, String email, String languages, String major, String projectsOwned, String projectsOn, String sentRequests, String receivedRequests) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.setLanguages(languages);
         this.bio = "";
-        this.projectsOwned = new ArrayList<String>();
-        this.projectsOn = new ArrayList<String>();
+        this.projectsOwned = setProjectsOwned(projectsOwned);
+        this.projectsOn = setProjectsOn(projectsOn);
+        this.sentRequests = setSentRequests(sentRequests);
+        this.receivedRequests = setReceivedRequests(receivedRequests);
         this.username = username;
         this.major = major;
     }
@@ -68,18 +70,22 @@ public class User {
         this.email = email;
     }
 
-    public void setProjectsOwned(String projects){
+    public ArrayList<String> setProjectsOwned(String projects){
         String[] projectArray = projects.split(",");
+        ArrayList<String> projectsOwnedList = new ArrayList<>();
         for (int i = 0; i < projectArray.length; i++) {
-            this.projectsOwned.add(projectArray[i]);
+            projectsOwnedList.add(projectArray[i]);
         }
+        return projectsOwnedList;
     }
 
-    public void setProjectsOn(String projects){
+    public ArrayList<String> setProjectsOn(String projects){
         String[] projectArray = projects.split(",");
+        ArrayList<String> projectsOnList = new ArrayList<>();
         for (int i = 0; i < projectArray.length; i++) {
-            this.projectsOn.add(projectArray[i]);
+            projectsOnList.add(projectArray[i]);
         }
+        return projectsOnList;
     }
 
     public void setLanguages(String languages) {  //input is languages separated by commas (no spaces)
@@ -127,7 +133,26 @@ public class User {
             languagesToString += language + ",";
         }
         languagesToString = languagesToString.substring(0, languagesToString.length() - 1);
-        String userString = name + ";" + username+ ";" + password + ";" + email + languagesToString + ";" + bio + ";" + username + ";" + major;
+        String userString = name + ";" + username+ ";" + password + ";" + email + ";" + languagesToString + ";" + bio  + ";" + major + ";";
+        for (int i = 0; i < projectsOwned.size(); i++) {
+            userString += projectsOwned.get(i) + ",";
+        }
+        userString = userString.substring(0, userString.length() - 1);
+        userString += ";";
+        for (int i = 0; i < projectsOn.size(); i++) {
+            userString += projectsOn.get(i) + ",";
+        }
+        userString = userString.substring(0, userString.length() - 1);
+        userString += ";";
+        for (int i = 0; i < sentRequests.size(); i++) {
+            userString += sentRequests.get(i) + ",";
+        }
+        userString = userString.substring(0, userString.length() - 1);
+        userString += ";";
+        for (int i = 0; i < receivedRequests.size(); i++) {
+            userString += receivedRequests.get(i) + ",";
+        }
+        userString = userString.substring(0, userString.length() - 1);
         return userString;
     }
 
@@ -145,6 +170,34 @@ public class User {
 
     public void addSentRequest(Request request) {
         sentRequests.add(request);
+    }
+
+    public void removeSentRequest(Request request) {
+        sentRequests.remove(request);
+    }
+
+    public void removeReceivedRequest(Request request) {
+        receivedRequests.remove(request);
+    }
+
+    public ArrayList<Request> setSentRequests(String requests) {
+        String[] requestArray = requests.split(" ");
+        ArrayList<Request> sentRequestList = new ArrayList<Request>();
+        for (int i = 0; i < requestArray.length; i++) {
+            Request toAdd = new Request(requestArray[0], requestArray[1], requestArray[2]);
+            sentRequestList.add(toAdd);
+        }
+        return sentRequestList;
+    }
+
+    public ArrayList<Request> setReceivedRequests(String requests) {
+        String[] requestArray = requests.split(" ");
+        ArrayList<Request> receivedRequestList= new ArrayList<Request>();
+        for (int i = 0; i < requestArray.length; i++) {
+            Request toAdd = new Request(requestArray[0], requestArray[1], requestArray[2]);
+            receivedRequestList.add(toAdd);
+        }
+        return receivedRequestList;
     }
 
 }

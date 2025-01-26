@@ -43,6 +43,7 @@ public class GUI implements Runnable {
             String toSend = "ADDPROJECT " + projectName + " " + description + " " + languages + " " + user.getUsername();
             try {
                 out.writeUTF(toSend);
+                out.flush();
                 frame.dispose();
             } catch (IOException e1) {
                 e1.printStackTrace();
