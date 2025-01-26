@@ -33,7 +33,7 @@ public class Request {
 
     public void acceptRequest() {
         this.status = "accepted";
-        this.sender.addProject(projectName);
+        this.sender.addProjectOn(projectName);
     }
 
     public String toString() {

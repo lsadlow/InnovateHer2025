@@ -102,7 +102,7 @@ public class ServerMethods {
         try {
             db.saveProject(toAdd);
             User projectPoster = db.findUser(username);
-            projectPoster.addProject(projectName);
+            projectPoster.addProjectOwned(projectName);
         } catch (Exception e) {
             e.printStackTrace();
             return "Failure";
@@ -116,13 +116,21 @@ public class ServerMethods {
             Project toRemove = db.findProject(projectName);
             db.removeProject(projectName);
             User poster = toRemove.getPoster();
-            poster.removeProject(projectName);
+            poster.removeProjectOwned(projectName);
             return "Project Removed Successfully";
         } catch (Exception e) {
             e.printStackTrace();
             return "Failure";
         }
 
+    }
+
+    public String changeUsername(String currentUsername, String newUsername) {
+        try {
+            User toChange = db.findUser(currentUsername);
+            toChange.setUsername(newUsername);
+
+        }
     }
 
 }

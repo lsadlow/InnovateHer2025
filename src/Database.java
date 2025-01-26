@@ -194,10 +194,13 @@ public class Database {
             }
         }
         for (User user : userList) {
-            if (projectIsUsers(projectName, user.getUsername())) {
-                user.removeProject(projectName);
-                counter++;
-                break;
+            ArrayList<String> projectsOn = user.getProjectsOn();
+            ArrayList<String> projectsOwned = user.getProjectsOwned();
+            if (projectsOwned.contains(projectName)) {
+                user.removeProjectOwned(projectName);
+            }
+            if (projectsOn.contains(projectName)) {
+                user.removeProjectOn(projectName);
             }
         }
         if (counter == 2) {
@@ -211,8 +214,13 @@ public class Database {
         String projects = "";
         try {
             User findUser = this.findUser(username);
-            ArrayList<String> projectList = findUser.getProjects();
-            for (String project : projectList) {
+            ArrayList<String> projectOwnedList = findUser.getProjectsOwned();
+            ArrayList<String> projectsOnList = findUser.getProjectsOn();
+            for (String project : projectOwnedList) {
+                projects += project + ",";
+            }
+            projects += " ";
+            for (String project : projectsOnList) {
                 projects += project + ",";
             }
             return projects;
@@ -220,6 +228,10 @@ public class Database {
             e.printStackTrace();
             return "Failure";
         }
+    }
+
+    public void editUsername(User user, String newUsername) {
+
     }
 
 }

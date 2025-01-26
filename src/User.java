@@ -56,6 +56,10 @@ public class User {
         this.name = name;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public void setPassword(String password){
         this.password = password;
     }
@@ -127,8 +131,12 @@ public class User {
         return userString;
     }
 
-    public ArrayList<String> getProjects() {
-        return projects;
+    public ArrayList<String> getProjectsOwned() {
+        return projectsOwned;
+    }
+
+    public ArrayList<String> getProjectsOn() {
+        return projectsOn;
     }
 
     public void addReceivedRequest(Request request) {
