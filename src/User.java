@@ -18,16 +18,21 @@ public class User {
         this.name = name;
         this.password = password;
         this.email = email;
+        this.languages = new ArrayList<String>();
         this.setLanguages(languages);
         this.bio = "";
         this.projectsOwned = setProjectsOwned(projectsOwned);
         this.projectsOn = setProjectsOn(projectsOn);
-        this.sentRequests = setSentRequests(sentRequests);
-        this.receivedRequests = setReceivedRequests(receivedRequests);
+        this.sentRequests = new ArrayList<Request>();
+        if(!(sentRequests.isEmpty()) && !(sentRequests == null)) {
+            this.sentRequests = setSentRequests(sentRequests);
+        }
+        this.receivedRequests = new ArrayList<Request>();
+        if(!(receivedRequests.isEmpty()) && !(receivedRequests == null)) {
+            this.receivedRequests = setReceivedRequests(receivedRequests);
+        }
         this.username = username;
         this.major = major;
-        this.sentRequests = new ArrayList<Request>();
-        this.receivedRequests = new ArrayList<Request>();
     }
 
     // Getters
@@ -107,6 +112,9 @@ public class User {
     }
 
     public void setLanguages(String languages) {  //input is languages separated by commas (no spaces)
+        if(languages.isEmpty() || languages == null) {
+            return;
+        }
         String[] languageArray = languages.split(",");
         for (int i = 0; i < languageArray.length; i++) {
             this.languages.add(languageArray[i]);
