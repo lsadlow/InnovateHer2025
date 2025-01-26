@@ -2,14 +2,15 @@ import javax.swing.*;
 import java.io.*;
 
 public class CreateProjectsPage implements Runnable {
+    private Client client;
     private User user;
     private DataInputStream in;
     private DataOutputStream out;
 
-    public CreateProjectsPage(User user, DataInputStream in, DataOutputStream out) {
-        this.user = null;
-        this.in = in;
-        this.out = out;
+    public CreateProjectsPage(Client client) {
+        this.user = client.getUser();
+        this.in = client.getDis();
+        this.out = client.getDos();
     }
 
     public void run() {

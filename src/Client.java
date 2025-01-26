@@ -95,6 +95,10 @@ public class Client {
         }
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public static void main(String[] args) {
         Client client = new Client("127.0.0.1", 12345); // Replace with server IP and port
         client.start();

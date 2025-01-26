@@ -3,14 +3,16 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class OwnProjectsPage implements Runnable {
-   private User user;
+   private Client client;
    private DataInputStream in;
    private DataOutputStream out;
+   private User user;
 
-   public OwnProjectsPage(User user, DataInputStream in, DataOutputStream out) {
-       this.user = user;
-       this.in = in;
-       this.out = out;
+   public OwnProjectsPage(Client client) {
+       this.client = client;
+       this.in = client.getDis();
+       this.out = client.getDos();
+       this.user = client.getUser();
    }
 
    public void run() {
