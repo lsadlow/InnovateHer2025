@@ -16,14 +16,16 @@ public class Database {
         this.userDataFile = new File("users.txt");
         this.projectDataFile = new File("projects.txt");
         try {
-            PrintWriter userDataWriter = new PrintWriter(new FileWriter(userDataFile));
+            userDataWriter = new PrintWriter(new FileWriter(userDataFile));
             userDataReader = new BufferedReader(new FileReader(userDataFile));
-            PrintWriter projectDataWriter = new PrintWriter(new FileWriter(projectDataFile));
+            projectDataWriter = new PrintWriter(new FileWriter(projectDataFile));
             projectDataReader = new BufferedReader(new FileReader(projectDataFile));
+            System.out.println("file i/o objects created successfully");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        this.userList = new ArrayList<>();
+        this.projects = new ArrayList<>();
     }
 
     public ArrayList<Project> getProjects() {
@@ -130,9 +132,11 @@ public class Database {
     }
 
     public void addUser(User user) {
+        System.out.println("at addUser method");
         userDataWriter.println(user.toString());
         userDataWriter.flush();
         userList.add(user);
+        System.out.println("User added successfully");
     }
 
     public ArrayList<User> getUsers() {
@@ -244,13 +248,12 @@ public class Database {
 
     public void updateDatabase() {
         try {
+            System.out.println("updateDatabase reached");
             userDataFile = new File("users.txt");
             projectDataFile = new File("projects.txt");
             PrintWriter userFileWriter = new PrintWriter(new FileWriter(userDataFile));
             PrintWriter projectFileWriter = new PrintWriter(new FileWriter(projectDataFile));
             if (!(userList == null) & !(projects == null)) {
-
-
                 for (User user : userList) {
                     this.addUser(user);
                     userFileWriter.println(user.toString());

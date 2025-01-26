@@ -37,6 +37,7 @@ public class ClientHandler extends Thread {
                 }
 
                 // Process the client request using ServerMethods
+                System.out.println(received);
                 String response = serverMethods.serverFunctions(received);
 
                 // Send the response back to the client
