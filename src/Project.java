@@ -8,6 +8,7 @@ public class Project {
     private ArrayList<String> languages;
     private User poster;
     private boolean visible;
+    private ArrayList<String> collaborators;
 
     private String username;
     private Database db;
@@ -23,12 +24,47 @@ public class Project {
         this.visible = true;
     }
 
+    // Getters
     public String getName() {
         return name;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public ArrayList<String> getLanguages() {
+        return languages;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public ArrayList<String> getCollaborators(){
+        return collaborators;
+    }
+
+    public User getPoster() {
+        return poster;
+    }
+
+    // Setters
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPoster(User poster) {
+        this.poster = poster;
     }
 
     public void makeVisible() {
@@ -39,8 +75,12 @@ public class Project {
         this.visible = false;
     }
 
-    public boolean isVisible() {
-        return visible;
+    public void setCollaborators(ArrayList<String> collaborators) {
+        this.collaborators = collaborators;
+    }
+
+    public void addCollaborator(String username) {
+        this.collaborators.add(username);
     }
 
     public void addLanguage(String language) {
@@ -82,14 +122,6 @@ public class Project {
         languagesString = languagesString.substring(0, languagesString.length() - 1);
         String postToString = name + ";" + description + ";" + languagesString + ";" + poster.getUsername();
         return postToString;
-    }
-
-    public ArrayList<String> getLanguages() {
-        return languages;
-    }
-
-    public User getPoster() {
-        return poster;
     }
 
 }
