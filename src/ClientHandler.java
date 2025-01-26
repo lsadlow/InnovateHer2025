@@ -48,10 +48,6 @@ class ClientHandler extends Thread
                     System.out.println("Connection closed");
                     break;
                 }
-// WITCH STATEMETN 
-                switch (received):
-
-
 
             } catch (IOException e) {
                 e.printStackTrace();
