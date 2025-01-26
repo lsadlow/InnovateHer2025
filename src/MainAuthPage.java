@@ -302,9 +302,10 @@ public class MainAuthPage {
         public void actionPerformed(ActionEvent e) {
                 try {
 
-                    output.writeUTF("2\n");
-                    output.writeUTF(usernameFeild.getText() + "\n");
-                    output.writeUTF(new String(passwordFeild.getText()) + "\n") ;
+                   // "LOGIN " + username + " " + password
+                    String outputString = "LOGIN " + usernameFeild.getText() + " " + passwordFeild.getText() ;
+
+                    output.writeUTF(outputString);
                     Database database = new Database();
                     User thisUser = database.findUser(usernameFeild.getText()) ;
                     client.user = thisUser ;
