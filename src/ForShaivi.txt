@@ -3,7 +3,7 @@ name = name.trim();
 username = username.trim();
 password = password.trim();
 email = email.trim();
-languages = languages.trim();
+languages = languages.replace(" ", "`");
 major = major.replace(" ", "`")
 confirmPassword = confirmPassword.trim();
 "SIGNUP " + name + " " + username + " " + password + " " + email + " " + languages + " " + major + " " + confirmPassword
@@ -14,22 +14,24 @@ password = password.trim();
 "LOGIN " + username + " " + password
 
 Add project language:
-languages = languages.trim();
+languages = languages.replace(" ", "`");
 projectName = projectName.replace(" ", "`");
 "ADDPROJECTLANGUAGES " + languages + " " + projectName
 
 Add user languages:
-userLanguages = userLanguages.trim();
-"ADDUSERLANGUAGED " + userLanguages + " " + username
+userLanguages = userLanguages.replace(" ", "`");
+"ADDUSERLANGUAGES " + userLanguages + " " + username
 
 Add project owned:
 description = description.replace(" ", "`");
 projectName = projectName.replace(" ", "`");
+languages = languages.replace(" ", "`");
 "ADDPROJECTOWNED " + projectName + " " + description + " " + languages + " " + username
 
 Add project on:
 description = description.replace(" ", "`");
 projectName = projectName.replace(" ", "`");
+languages = languages.replace(" ", "`");
 "ADDPROJECTON " + projectName + " " + description + " " + languages + " " + username
 
 Remove project:
@@ -47,6 +49,11 @@ newPassword = newPassword.trim();
 Add bio:
 bio = bio.replace(" ", "`");
 "ADDBIO " + username + " " + bio
+
+Send request:
+projectName = projectName.replace(" ", "`");
+message = message.replace(" ", "`");
+"SENDREQUEST " + username + " " + projectName
 
 Accept request:
 projectName = projectName.replace(" ", "`");

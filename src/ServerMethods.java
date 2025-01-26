@@ -48,6 +48,9 @@ public class ServerMethods {
             case "ADDBIO":
                 outcome = addBio(split[1],split[2]);
                 break;
+            case "SENDREQUEST":
+                outcome = sendRequest(split[1], split[2], split[3]);
+                break;
             case "ACCEPTREQUEST":
                 outcome = acceptRequest(split[1], split[2], split[3]);
                 break;
@@ -70,8 +73,9 @@ public class ServerMethods {
 
     public String signup(String name, String username, String password,String email, String languages, String major,
                          String confirmPassword){
-        String result = db.confirmSignup(email, username, password, confirmPassword);
         major = major.replace("`", " ");
+        languages = languages.replace("`", " ");
+        String result = db.confirmSignup(email, username, password, confirmPassword);
         if(result.equals("Signup successful!")) {
             User user = new User(name, username, password, email, languages, major, "", "", "", "");
             db.addUser(user);
@@ -92,6 +96,7 @@ public class ServerMethods {
     // Language updates
 
     public String addProjectLanguages(String languages, String projectName) {
+        languages = languages.replace("`", " ");
         String[] languagesArray = languages.split(",");
         ArrayList<String> projectLanguages = null;
         Project projectToEdit = null;
@@ -113,6 +118,7 @@ public class ServerMethods {
     }
 
     public String addUserLanguages(String userLanguages, String username) {
+        userLanguages = userLanguages.replace("`", " ");
         String[] languagesArray = userLanguages.split(",");
         User userToEdit = null;
         ArrayList<String> userLanguagesArray = null;
@@ -137,6 +143,7 @@ public class ServerMethods {
     public String addProjectOwned(String projectName, String description, String languages, String username) {
         description = description.replace("`", " ");
         projectName = projectName.replace("`", " ");
+        languages = languages.replace("`", " ");
         if (db.confirmProjectName(projectName).equals("Project name is already taken")) {
             return "Project name is already taken";
         }
@@ -155,6 +162,7 @@ public class ServerMethods {
     public String addProjectOn(String projectName, String description, String languages, String username) {
         description = description.replace("`", " ");
         projectName = projectName.replace("`", " ");
+        languages = languages.replace("`", " ");
         Project toAdd = new Project(projectName, description, languages, username, "");
         try {
             db.saveProject(toAdd);
@@ -216,7 +224,19 @@ public class ServerMethods {
         return "Bio added";
     }
 
-    // Accept and deny requests
+    // Send, accept, and deny requests
+
+    public String sendRequest(String message, String username, String projectName) {
+        message = message.replace("`", " ");
+        projectName = projectName.replace("`", " ");
+        Request request = new Request(message, username, projectName);
+        Project project = db.findProject(projectName);
+        User currentUser = db.findUser(username);
+        currentUser.addSentRequest(request);
+        User owner = db.findUser(project.getPoster().getUsername());
+        owner.addReceivedRequest(request);
+        return "Request sent succesfully";
+    }
 
     public String acceptRequest(String ownerUsername, String projectName, String requesterUsername) {
         User owner = db.findUser(ownerUsername);
