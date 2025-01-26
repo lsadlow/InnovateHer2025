@@ -4,18 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * CS180 Team Project -- Direct Messaging Platform
- *
- * Contains GUI elements for the main page of user authentication.
- * Includes the main starting menu with login and signup GUI screens.
- * Also sends/receives information to/from the server.
- *
- * @author Nicholas Chong
- *
- * @version 11/27/2024
- *
- */
+
 
 public class MainAuthPage {
 
@@ -188,112 +177,112 @@ public class MainAuthPage {
     // login details (server code 2)
     private void login() {
 
-        JFrame frame = new JFrame("Log In") ;
-        frame.setLayout(new FlowLayout( FlowLayout.CENTER , 10 ,0));
-        frame.setSize(new Dimension(2000 , 1000));
+        JFrame frame = new JFrame("Log In");
+        frame.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        frame.setSize(new Dimension(2000, 1000));
+        frame.getContentPane().setBackground(Color.black);
 
+        // JLayeredPane to manage layers
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(2000, 1000));
 
-
-
-        // BTextfeilds
-        JPanel topPanel = new JPanel() ;
-        topPanel.setPreferredSize(new Dimension(2000 , 1000));
-        topPanel.setBackground(Color.white);
-        topPanel.setLayout(null);
-
-        JLabel banner = new JLabel("       Log In" , JLabel.CENTER);
+        // Banner setup
+        JLabel banner = new JLabel();
         banner.setFont(new Font("Monospaced", Font.BOLD, 40));
         banner.setForeground(Color.black);
         banner.setOpaque(true);
-        ImageIcon front = new ImageIcon("img_5.png") ;
-        Image frontImage = front.getImage().getScaledInstance(1800 , 600 , Image.SCALE_SMOOTH) ;
-        ImageIcon frontIcon = new ImageIcon(frontImage) ;
+        ImageIcon front = new ImageIcon("img_16.png");
+        Image frontImage = front.getImage().getScaledInstance(1400, 750, Image.SCALE_SMOOTH);
+        ImageIcon frontIcon = new ImageIcon(frontImage);
         banner.setIcon(frontIcon);
         banner.setHorizontalTextPosition(JLabel.CENTER);
         banner.setVerticalTextPosition(JLabel.TOP);
         banner.setIconTextGap(-400);
-
+        banner.setBackground(Color.black);
         banner.setVerticalAlignment(JLabel.CENTER);
         banner.setHorizontalAlignment(JLabel.CENTER);
-        banner.setBounds(0,0 , 1800 , 300);
-        topPanel.add(banner , JLabel.CENTER) ;
+        banner.setBounds(100, 0, 1800, 450);
 
+        // Adding banner to the layered pane at the default layer
+        layeredPane.add(banner, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.setBackground(Color.black);
 
+        // Input panel setup
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
+        inputPanel.setBounds(690, 350, 600, 300);
+        inputPanel.setBackground(Color.black);
+        inputPanel.setOpaque(true);
+        inputPanel.setBorder(BorderFactory.createLineBorder((new Color(0xFFE9C7) )));
 
+        JLabel text = new JLabel("                     Login                    ");
+        text.setFont(new Font("Monospaced", Font.PLAIN, 30));
+        text.setForeground((new Color(0xFFE9C7) ));
 
-        JPanel inputPanel = new JPanel() ;
-        inputPanel.setLayout(new FlowLayout( FlowLayout.CENTER , 10 ,50));
+        JLabel username = new JLabel("  Username: ");
+        username.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        username.setForeground((new Color(0xFFE9C7)));
 
-        inputPanel.setBounds(730,310, 550,200);
-        inputPanel.setBackground(new Color(0x141414));
-        inputPanel.setOpaque(false);
+        JTextField usernameField = new JTextField();
+        usernameField.setPreferredSize(new Dimension(300, 30));
+        usernameField.setBorder(BorderFactory.createEmptyBorder());
+        usernameField.setFont(new Font("Monospaced", Font.BOLD, 20));
 
+        JLabel password = new JLabel("  Password: ");
+        password.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        password.setForeground((new Color(0xFFE9C7)));
 
-        JLabel username = new JLabel("Username: ") ;
-        // Labels don't need prefered size
-        username.setFont(new Font("Monospaced" , Font.PLAIN , 20));
-        username.setForeground(Color.black);
+        JTextField passwordField = new JTextField();
+        passwordField.setPreferredSize(new Dimension(300, 30));
+        passwordField.setBorder(BorderFactory.createEmptyBorder());
+        passwordField.setFont(new Font("Monospaced", Font.BOLD, 20));
 
-        JTextField usernameFeild = new JTextField() ;
-        usernameFeild.setPreferredSize(new Dimension(300 ,30));
-        usernameFeild.setBorder(BorderFactory.createEmptyBorder());
-        usernameFeild.setFont(new Font("Monospaced" , Font.BOLD , 20));
-
+        inputPanel.add(text) ;
         inputPanel.add(username);
-        inputPanel.add(usernameFeild) ;
-
-        JLabel password = new JLabel("Password: ") ; // Labels don't need prefered size
-        password.setFont(new Font("Monospaced" , Font.PLAIN , 20));
-        password.setForeground(Color.black);
-
-        JTextField passwordFeild = new JTextField() ;
-        passwordFeild.setPreferredSize(new Dimension(300 ,30));
-        passwordFeild.setBorder(BorderFactory.createEmptyBorder());
-        passwordFeild.setFont(new Font("Monospaced" , Font.BOLD , 20));
+        inputPanel.add(usernameField);
         inputPanel.add(password);
-        inputPanel.add(passwordFeild) ;
-        topPanel.add(inputPanel);
+        inputPanel.add(passwordField);
 
+        // Adding input panel to the layered pane at the popup layer
+        layeredPane.add(inputPanel, JLayeredPane.POPUP_LAYER);
 
-
-        //Buttons
-        JPanel controlPanel = new JPanel() ;
-        controlPanel.setLayout(new FlowLayout(FlowLayout.CENTER , 50 ,10));
-        controlPanel.setBounds(650,550, 700,250);
+        // Buttons
+        JPanel controlPanel = new JPanel();
+        controlPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 10));
+        controlPanel.setBounds(640, 720, 700, 250);
         controlPanel.setBackground(Color.magenta);
         controlPanel.setOpaque(false);
+
         JButton loginButton = new JButton("Log In");
         loginButton.setPreferredSize(new Dimension(170, 55));
-        loginButton.setBackground(Color.magenta) ;
+        loginButton.setBackground((new Color(0xFFE9C7)));
         loginButton.setBorder(BorderFactory.createEtchedBorder());
         loginButton.setFocusable(false);
-        loginButton.setFont(new Font("Monospaced" , Font.BOLD , 20));
+        loginButton.setFont(new Font("Monospaced", Font.BOLD, 20));
         loginButton.setForeground(Color.black);
         loginButton.setOpaque(true);
 
-
         JButton backButton = new JButton("Back");
         backButton.setPreferredSize(new Dimension(170, 55));
-        backButton.setBackground(new Color(0x6eaa6b)) ;
+        backButton.setBackground(new Color(0x6eaa6b));
         backButton.setBorder(BorderFactory.createEtchedBorder());
         backButton.setFocusable(false);
-        backButton.setFont(new Font("Monospaced" , Font.BOLD , 20));
+        backButton.setFont(new Font("Monospaced", Font.BOLD, 20));
         backButton.setForeground(Color.black);
         backButton.setOpaque(true);
 
+        controlPanel.add(loginButton);
+        controlPanel.add(backButton);
 
+        // Adding control panel to the layered pane at the popup layer
+        layeredPane.add(controlPanel, JLayeredPane.POPUP_LAYER );
 
-        // instantiate HomePageGUI to use its methods
-        HomePage homePage = new HomePage(client);
-
-        controlPanel.add(loginButton) ;
-        controlPanel.add(backButton) ;
-        topPanel.add(controlPanel) ;
-
-        frame.add(topPanel , JLabel.CENTER) ;
-
-
+        // Adding the layered pane to the frame
+        frame.add(layeredPane);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        HomePage homePage = new HomePage(client) ;
 
 
         // action listeners
@@ -303,13 +292,13 @@ public class MainAuthPage {
                 try {
 
                    // "LOGIN " + username + " " + password
-                    String outputString = "LOGIN " + usernameFeild.getText() + " " + passwordFeild.getText() ;
+                    String outputString = "LOGIN " + usernameField.getText() + " " + passwordField.getText() ;
 
                     output.writeUTF(outputString);
                     String serverResponse = bfr.readUTF() ;
 
                     Database database = new Database();
-                    User thisUser = database.findUser(usernameFeild.getText()) ;
+                    User thisUser = database.findUser(usernameField.getText()) ;
                     client.user = thisUser ;
                     // server response
                     JOptionPane.showMessageDialog(null, serverResponse);
