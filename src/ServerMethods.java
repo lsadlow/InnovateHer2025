@@ -7,6 +7,9 @@ public class ServerMethods {
         this.db = db;
     }
 
+
+
+
     public String serverFunctions(String infoSent) {
         db.loadProjects();
         db.loadUsers();
@@ -62,6 +65,7 @@ public class ServerMethods {
         db.updateDatabase();
         return outcome;
     }
+
 
     // Signup and login
 

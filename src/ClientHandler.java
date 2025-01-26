@@ -29,9 +29,8 @@ class ClientHandler extends Thread
         while (true)
         {
             try {
-                // Ask user what he wants
-                CreateProjectsPage gui = new CreateProjectsPage(dis, dos);
-                SwingUtilities.invokeLater(gui);
+                // Ask user what she wants
+
 
                 dos.writeUTF("client handler working");
                 dos.flush();

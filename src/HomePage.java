@@ -1,10 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.PrintWriter;
 
 public class HomePage {
-    public static void main(String[] args) {
+
+    private Client client;
+    private DataOutputStream output;
+    private DataInputStream bfr;
+
+    public HomePage(Client client) {
+        this.client = client;
+        this.output = client.getDos();
+        this.bfr = client.getDis();
+    }
 
 
+
+    public void showHomePage(User user) {
         // create JFrame
         JFrame frame = new JFrame("Home Page");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

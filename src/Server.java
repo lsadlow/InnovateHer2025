@@ -1,44 +1,48 @@
 import java.io.*;
-import java.text.*;
-import java.util.*;
 import java.net.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-// Server class 
-public class Server
-{
-    public static void main(String[] args) throws IOException
-    {
-        ServerSocket ss = new ServerSocket(5056);
+public class Server {
+    private ServerSocket serverSocket;
+    private ExecutorService threadPool;
+    private Database database;
 
-        // running infinite loop for getting 
-        // client request 
-        while (true)
-        {
-            Socket s = null;
-            try
-            {
-                // socket object to receive incoming client requests 
-                s = ss.accept();
+    public Server(int port) {
+        try {
+            serverSocket = new ServerSocket(port);
+            threadPool = Executors.newFixedThreadPool(10); // Allows up to 10 concurrent clients
+            database = new Database(); // Initialize your database instance here
+            System.out.println("Server started and listening on port " + port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-                System.out.println("A new client is connected : " + s);
+    public void start() {
+        while (true) {
+            try {
+                // Accept incoming client connections
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("New client connected: " + clientSocket);
 
-                // obtaining input and out streams 
-                DataInputStream dis = new DataInputStream(s.getInputStream());
-                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+                // Create input and output streams for communication
+                DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
+                DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
 
-                System.out.println("Assigning new thread for this client");
-
-                // create a new thread object 
-                Thread t = new ClientHandler(s, dis, dos);
-
-                // Invoking the start() method 
-                t.start();
-
-            }
-            catch (Exception e){
-                s.close();
+                // Handle client communication in a separate thread
+                threadPool.execute(new ClientHandler(clientSocket, dis, dos));
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-} 
+
+    public static void main(String[] args) {
+        Server server = new Server(12345); // Replace with desired port number
+        server.start();
+    }
+}
+
+
+
