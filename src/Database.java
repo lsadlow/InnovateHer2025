@@ -31,9 +31,9 @@ public class Database {
     }
 
     // Confirming methods
-    public String confirmSignup(String email, String username, String password) {
+    public String confirmSignup(String email, String username, String password, String confirmpassword) {
         String results = "";
-        results += confirmEmail(email) + confirmUsername(username) + confirmPassword(password);
+        results += confirmEmail(email) + confirmUsername(username) + confirmPassword(password, confirmpassword);
         if (results.isEmpty()) {
             return "Signup successful!";
         } else {
@@ -67,7 +67,7 @@ public class Database {
         return "";
     }
 
-    public String confirmPassword(String password) {
+    public String confirmPassword(String password, String confirmPassword) {
         boolean uppercase = false;
         boolean lowercase = false;
         boolean number = false;
@@ -106,6 +106,10 @@ public class Database {
 
         if (password.length() < 8 || password.length() > 15) {
             issues += "Password must be between 8 and 15 characters long. ";
+        }
+
+        if (!(password.equals(confirmPassword))) {
+            issues += "Confirm password does not match. ";
         }
 
         return issues;
@@ -185,29 +189,20 @@ public class Database {
     }
 
     public String removeProject(String projectName) {
-        int counter = 0;
+        Project toRemove = findProject(projectName);
         for (Project project : projects) {
             if (project.getName().equals(projectName)) {
                 projects.remove(project);
-                counter++;
                 break;
             }
         }
-        for (User user : userList) {
-            ArrayList<String> projectsOn = user.getProjectsOn();
-            ArrayList<String> projectsOwned = user.getProjectsOwned();
-            if (projectsOwned.contains(projectName)) {
-                user.removeProjectOwned(projectName);
-            }
-            if (projectsOn.contains(projectName)) {
-                user.removeProjectOn(projectName);
-            }
+        User poster = toRemove.getPoster();
+        poster.removeProjectOwned(projectName);
+        for (int i = 0; i < toRemove.getCollaborators().size(); i++) {
+            User user = findUser(toRemove.getCollaborators().get(i));
+            user.removeProjectOn(projectName);
         }
-        if (counter == 2) {
-            return "Success";
-        } else {
-            return "Failure";
-        }
+        return "Project removed";
     }
 
     public String getUsersProjects(String username) {
