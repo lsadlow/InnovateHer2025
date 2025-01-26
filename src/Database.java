@@ -9,23 +9,26 @@ public class Database {
     private BufferedReader projectDataReader;
     private PrintWriter userDataWriter;
     private PrintWriter projectDataWriter;
-    private ArrayList<User> userList;
+    private static ArrayList<User> userList ;
     private ArrayList<Project> projects;
 
     public Database() {
         this.userDataFile = new File("users.txt");
         this.projectDataFile = new File("projects.txt");
         try {
-            userDataWriter = new PrintWriter(new FileWriter(userDataFile));
+            userDataWriter = new PrintWriter(new FileWriter(userDataFile) , true);
             userDataReader = new BufferedReader(new FileReader(userDataFile));
-            projectDataWriter = new PrintWriter(new FileWriter(projectDataFile));
+            projectDataWriter = new PrintWriter(new FileWriter(projectDataFile) , true);
             projectDataReader = new BufferedReader(new FileReader(projectDataFile));
             System.out.println("file i/o objects created successfully");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         this.userList = new ArrayList<>();
         this.projects = new ArrayList<>();
+        loadUsers();
+        loadProjects();
     }
 
     public ArrayList<Project> getProjects() {
@@ -133,25 +136,32 @@ public class Database {
 
     public void addUser(User user) {
         System.out.println("at addUser method");
-        userDataWriter.println(user.toString());
-        userDataWriter.flush();
         userList.add(user);
+
+        try (PrintWriter userFileWriter = new PrintWriter(new FileWriter(userDataFile, true))) {
+            userFileWriter.println(user.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("User added successfully");
     }
+
 
     public ArrayList<User> getUsers() {
         return userList;
     }
 
     public void loadUsers() {
-        try {
-            String line = userDataReader.readLine();
-            while (line != null) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Users.txt"))){
+            String line ;
+            while ((line = reader.readLine()) != null) {
                 String[] userParameters = line.split(";");
                 User toBeAdded = new User(userParameters[0], userParameters[1], userParameters[2], userParameters[3], userParameters[4], userParameters[5], userParameters[6], userParameters[7], userParameters[8], userParameters[9]);
                 userList.add(toBeAdded);
-                line = userDataReader.readLine();
+
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -182,12 +192,17 @@ public class Database {
     }
 
     public User findUser(String username) {
+        loadUsers();
         System.out.println("Parameter received: " + username);
-        ArrayList<User> userList = this.getUserList();
+
         for (User user : userList) {
+            System.out.println(user);
             if (user.getUsername().equals(username)) {
+                System.out.println("----------");
+                System.out.println(user.getUsername().equals(username));
                 return user;
             }
+
         }
         return null;
     }
@@ -250,20 +265,28 @@ public class Database {
     public void updateDatabase() {
         try {
             System.out.println("updateDatabase reached");
-            userDataFile = new File("users.txt");
-            projectDataFile = new File("projects.txt");
-            PrintWriter userFileWriter = new PrintWriter(new FileWriter(userDataFile));
-            PrintWriter projectFileWriter = new PrintWriter(new FileWriter(projectDataFile));
-            if (!(userList == null) & !(projects == null)) {
-                for (User user : userList) {
-                    //newUserList.add(user);
-                    userFileWriter.println(user.toString());
-                    userFileWriter.flush();
+
+            // First, reload data to avoid overwriting issues
+            loadUsers();
+            loadProjects();
+
+            // Rewrite the files with current data
+            try (PrintWriter userFileWriter = new PrintWriter(new FileWriter(userDataFile));
+                 PrintWriter projectFileWriter = new PrintWriter(new FileWriter(projectDataFile))) {
+
+                if (userList != null) {
+                    for (User user : userList) {
+                        userFileWriter.println(user.toString());
+                    }
                 }
-                for (Project project : projects) {
-                    projectFileWriter.println(project.toString());
-                    projectFileWriter.flush();
+
+                if (projects != null) {
+                    for (Project project : projects) {
+                        projectFileWriter.println(project.toString());
+                    }
                 }
+
+                System.out.println("Database updated successfully");
             }
         } catch (IOException e) {
             e.printStackTrace();

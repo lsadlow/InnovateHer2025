@@ -33,12 +33,12 @@ public class HomePage {
         basePanel.setPreferredSize(new Dimension(2000, 1000));
         basePanel.setBackground(new Color(0x053e71));
 
-        ImageIcon front = new ImageIcon("img_10.png");
+        ImageIcon front = new ImageIcon("img_4.png");
         Image frontImage = front.getImage().getScaledInstance(1750, 990, Image.SCALE_SMOOTH);
         ImageIcon frontIcon = new ImageIcon(frontImage);
 
         // labels & buttons
-        JLabel label = new JLabel("Welcome " + user.getUsername(), JLabel.CENTER);
+        JLabel label = new JLabel("Welcome" , JLabel.CENTER);
         label.setLayout(null);
 
         label.setBackground(new Color(0x053e71));
@@ -90,27 +90,27 @@ public class HomePage {
         contactsPanel.add(buttonPanel);
 
         //add contact
-        JButton RequestsButton = new JButton("Requests");
-        RequestsButton.setBackground(Color.white);
-        RequestsButton.setBorder(BorderFactory.createEtchedBorder());
-        RequestsButton.setFocusable(false);
-        RequestsButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        RequestsButton.setForeground(Color.white);
-        RequestsButton.setOpaque(false);
-        RequestsButton.setPreferredSize(new Dimension(100, 50));
-        buttonPanel.add(RequestsButton);
+        JButton delProjButton = new JButton("Delete Project");
+        delProjButton.setBackground(Color.white);
+        delProjButton.setBorder(BorderFactory.createEtchedBorder());
+        delProjButton.setFocusable(false);
+        delProjButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        delProjButton.setForeground(Color.white);
+        delProjButton.setOpaque(false);
+        delProjButton.setPreferredSize(new Dimension(100, 50));
+        buttonPanel.add(delProjButton);
         contactsPanel.add(buttonPanel);
 
         //remove contact
-        JButton removeContactButton = new JButton("Remove Contact");
-        removeContactButton.setBackground(Color.white);
-        removeContactButton.setBorder(BorderFactory.createEtchedBorder());
-        removeContactButton.setFocusable(false);
-        removeContactButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        removeContactButton.setForeground(Color.white);
-        removeContactButton.setOpaque(false);
-        removeContactButton.setPreferredSize(new Dimension(100, 50));
-        buttonPanel.add(removeContactButton);
+        JButton requestsButton = new JButton("Project Requests");
+        requestsButton.setBackground(Color.white);
+        requestsButton.setBorder(BorderFactory.createEtchedBorder());
+        requestsButton.setFocusable(false);
+        requestsButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        requestsButton.setForeground(Color.white);
+        requestsButton.setOpaque(false);
+        requestsButton.setPreferredSize(new Dimension(100, 50));
+        buttonPanel.add(requestsButton);
         contactsPanel.add(buttonPanel);
 
         basePanel.add(contactsPanel, JLabel.CENTER);
@@ -148,15 +148,15 @@ public class HomePage {
         convPanel.add(convButtonPanel);
 
         // delete convo
-        JButton delConvButton = new JButton("Delete Conversation");
-        delConvButton.setBackground(Color.white);
-        delConvButton.setBorder(BorderFactory.createEtchedBorder());
-        delConvButton.setFocusable(false);
-        delConvButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        delConvButton.setForeground(Color.white);
-        delConvButton.setOpaque(false);
-        delConvButton.setPreferredSize(new Dimension(100, 50));
-        convButtonPanel.add(delConvButton);
+        JButton myProjButton = new JButton("My Projects");
+        myProjButton.setBackground(Color.white);
+        myProjButton.setBorder(BorderFactory.createEtchedBorder());
+        myProjButton.setFocusable(false);
+        myProjButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        myProjButton.setForeground(Color.white);
+        myProjButton.setOpaque(false);
+        myProjButton.setPreferredSize(new Dimension(100, 50));
+        convButtonPanel.add(myProjButton);
         convPanel.add(convButtonPanel);
 
         basePanel.add(convPanel, JLabel.CENTER);
