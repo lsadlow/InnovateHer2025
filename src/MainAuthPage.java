@@ -503,16 +503,11 @@ public class MainAuthPage {
             public void actionPerformed(ActionEvent e) {
                 try{
                // Signup : "SIGNUP " + name + " " + username + " " + password + " " + email + " " + languages + " " + major + " " + confirmPassword                try {
-                    output.writeUTF("1\n");
-                    output.writeUTF(firstNameFeild.getText() + "\n");
-                    output.writeUTF(usernameFeild.getText() + "\n");
-                    output.writeUTF(passwordFeild.getText() + "\n");
-                    output.writeUTF(emailFeild.getText() + "\n");
-                    output.writeUTF(skillsFeild.getText() + "\n");
-                    output.writeUTF(majorFeild.getText() + "\n");
-                    output.writeUTF(confirmFeild.getText() + "\n");
+                    String outputString = "SIGNUP" + firstNameFeild.getText() + usernameFeild.getText() + passwordFeild.getText() + emailFeild.getText() + skillsFeild.getText() + majorFeild.getText() + confirmFeild.getText()  + "\n";
+                    output.writeUTF(outputString);
                     // server response
                     String serverResponse = bfr.readLine();
+                    System.out.println(serverResponse);
                     if (serverResponse.equals("true")) {
                         JOptionPane.showMessageDialog(frame, "Signup successful!");
                         frame.dispose();
