@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
@@ -31,10 +32,15 @@ class ClientHandler extends Thread
         {
             try {
                 // Ask user what he wants
+                GUI gui = new GUI(dis, dos);
+                SwingUtilities.invokeLater(gui);
+
                 dos.writeUTF("client handler working");
+                dos.flush();
 
                 // receive the answer from client
                 received = dis.readUTF();
+
 
                 if(received.equals("Exit"))
                 {
