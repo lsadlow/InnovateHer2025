@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class ServerMethods {
     private Database db;
 
+
     public ServerMethods(Database db) {
         this.db = db;
     }
@@ -65,23 +66,35 @@ public class ServerMethods {
                 break;
         }
         db.updateDatabase();
+        System.out.println("Outcome: "  + outcome);
         return outcome;
     }
 
 
     // Signup and login
 
-    public String signup(String name, String username, String password,String email, String languages, String major,
-                         String confirmPassword){
-        major = major.replace("`", " ");
-        languages = languages.replace("`", " ");
-        String result = db.confirmSignup(email, username, password, confirmPassword);
-        if(result.equals("Signup successful!")) {
-            User user = new User(name, username, password, email, languages, major, "", "", "", "");
-            db.addUser(user);
+    public String signup(String name, String username, String password, String email, String languages, String major, String confirmPassword) {
+        try {
+            // Replace backticks with spaces for compatibility
+            major = major.replace("`", " ");
+            languages = languages.replace("`", " ");
+
+            // Validate the signup process with the database
+            String result = db.confirmSignup(email, username, password, confirmPassword);
+            if (result.equals("Signup successful!")) {
+                // Create a new user if validation succeeds
+                User user = new User(name, username, password, email, languages, major, "", "", "", "");
+                db.addUser(user); // Add user to the database
+            }
+
+            return result; // Return the result of the signup attempt
+        } catch (Exception e) {
+            // Catch any unexpected exceptions and return a failure message
+            e.printStackTrace();
+            return "Signup failed due to an internal error.";
         }
-        return result;
     }
+
 
     public String login(String username, String password) {
         User toValidate = db.findUser(username);

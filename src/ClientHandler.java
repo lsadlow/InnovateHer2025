@@ -40,6 +40,7 @@ public class ClientHandler extends Thread {
                 String response = serverMethods.serverFunctions(received);
 
                 // Send the response back to the client
+                System.out.println("Response: " + response);
                 dos.writeUTF(response);
                 dos.flush();
             } catch (IOException e) {
