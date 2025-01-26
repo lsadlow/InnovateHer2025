@@ -41,7 +41,6 @@ class ClientHandler extends Thread
                 // receive the answer from client
                 received = dis.readUTF();
 
-
                 if(received.equals("Exit"))
                 {
                     System.out.println("Client " + this.s + " sends exit...");

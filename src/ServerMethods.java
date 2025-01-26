@@ -8,6 +8,8 @@ public class ServerMethods {
     }
 
     public String serverFunctions(String infoSent) {
+        db.loadProjects();
+        db.loadUsers();
         String[] split = infoSent.split(" ");
         String action = split[0];
         String outcome = "";
