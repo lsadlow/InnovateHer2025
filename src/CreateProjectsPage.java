@@ -1,21 +1,19 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.*;
 
-public class GUI implements Runnable {
+public class CreateProjectsPage implements Runnable {
     private User user;
     private DataInputStream in;
     private DataOutputStream out;
 
-    public GUI(DataInputStream in, DataOutputStream out) {
+    public CreateProjectsPage(User user, DataInputStream in, DataOutputStream out) {
         this.user = null;
         this.in = in;
         this.out = out;
     }
 
     public void run() {
-
+        showCreateProjectDialog();
     }
 
     public void showCreateProjectDialog() {
