@@ -169,6 +169,7 @@ public class MainAuthPage {
                 int confirmExit = JOptionPane.showConfirmDialog(frame, "Are you sure you want to close the app?", "Exit", JOptionPane.YES_NO_OPTION);
                 if (confirmExit == JOptionPane.YES_NO_OPTION) {
                     System.exit(0);
+                    frame.setVisible(false);
                 }
             }
         });
