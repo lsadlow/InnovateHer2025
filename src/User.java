@@ -116,6 +116,7 @@ public class User {
             return;
         }
         String[] languageArray = languages.split(",");
+
         for (int i = 0; i < languageArray.length; i++) {
             this.languages.add(languageArray[i]);
         }
