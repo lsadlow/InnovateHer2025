@@ -38,7 +38,7 @@ public class HomePage {
         ImageIcon frontIcon = new ImageIcon(frontImage);
 
         // labels & buttons
-        JLabel label = new JLabel("Welcome " + "Insert Username", JLabel.CENTER);
+        JLabel label = new JLabel("Welcome " + user.getUsername(), JLabel.CENTER);
         label.setLayout(null);
 
         label.setBackground(new Color(0x053e71));
