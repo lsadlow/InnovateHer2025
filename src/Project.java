@@ -13,7 +13,7 @@ public class Project {
     private String username;
     private Database db;
 
-    public Project(String name, String description, String languages, String username) {
+    public Project(String name, String description, String languages, String username, String collaborators) {
         this.name = name;
         this.description = description;
         this.languages = this.setLanguages(languages);
@@ -21,6 +21,7 @@ public class Project {
         Database db = new Database();
         db.loadUsers();
         this.poster = db.findUser(username);
+        this.collaborators = this.setCollaborators(collaborators);
         this.visible = true;
     }
 
@@ -120,8 +121,22 @@ public class Project {
             languagesString += languages.get(i) + ",";
         }
         languagesString = languagesString.substring(0, languagesString.length() - 1);
-        String postToString = name + ";" + description + ";" + languagesString + ";" + poster.getUsername();
+        String collaboratorsString = "";
+        for (int i = 0; i < collaborators.size(); i++) {
+            collaboratorsString += collaborators.get(i) + ",";
+        }
+        collaboratorsString = collaboratorsString.substring(0, collaboratorsString.length() - 1);
+        String postToString = name + ";" + description + ";" + languagesString + ";" + poster.getUsername() +";" + collaboratorsString;
         return postToString;
+    }
+
+    public ArrayList<String> setCollaborators(String collaborators) {
+        String[] collaboratorArray = collaborators.split(",");
+        ArrayList<String> newCollaborators = new ArrayList<>();
+        for (String collaborator : collaboratorArray) {
+            newCollaborators.add(collaborator);
+        }
+        return newCollaborators;
     }
 
 }

@@ -60,7 +60,7 @@ public class ServerMethods {
                          String confirmPassword){
         String result = db.confirmSignup(email, username, password, confirmPassword);
         if(result.equals("Signup successful!")) {
-            User user = new User(name, username, password, email, languages, major);
+            User user = new User(name, username, password, email, languages, major, "", "", "", "");
             db.addUser(user);
         }
         return result;
@@ -125,7 +125,7 @@ public class ServerMethods {
         if (db.confirmProjectName(projectName).equals("Project name is already taken")) {
             return "Project name is already taken";
         }
-        Project toAdd = new Project(projectName, description, languages, username);
+        Project toAdd = new Project(projectName, description, languages, username, "");
         try {
             db.saveProject(toAdd);
             User projectPoster = db.findUser(username);
@@ -138,7 +138,7 @@ public class ServerMethods {
     }
 
     public String addProjectOn(String projectName, String description, String languages, String username) {
-        Project toAdd = new Project(projectName, description, languages, username);
+        Project toAdd = new Project(projectName, description, languages, username, "");
         try {
             db.saveProject(toAdd);
             User projectPoster = db.findUser(username);

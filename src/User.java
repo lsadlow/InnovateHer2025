@@ -199,7 +199,7 @@ public class User {
     }
 
     public ArrayList<Request> setSentRequests(String requests) {
-        String[] requestArray = requests.split(" ");
+        String[] requestArray = requests.split(",");
         ArrayList<Request> sentRequestList = new ArrayList<Request>();
         for (int i = 0; i < requestArray.length; i++) {
             Request toAdd = new Request(requestArray[0], requestArray[1], requestArray[2]);
@@ -209,7 +209,7 @@ public class User {
     }
 
     public ArrayList<Request> setReceivedRequests(String requests) {
-        String[] requestArray = requests.split(" ");
+        String[] requestArray = requests.split(",");
         ArrayList<Request> receivedRequestList= new ArrayList<Request>();
         for (int i = 0; i < requestArray.length; i++) {
             Request toAdd = new Request(requestArray[0], requestArray[1], requestArray[2]);

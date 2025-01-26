@@ -150,7 +150,7 @@ public class Database {
             String line = projectDataReader.readLine();
             while (line != null) {
                 String[] projectParameters = line.split(";");
-                Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2], projectParameters[3]);
+                Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2], projectParameters[3], projectParameters[4]);
                 projects.add(toBeAdded);
                 line = projectDataReader.readLine();
             }
