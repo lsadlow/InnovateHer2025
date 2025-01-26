@@ -99,7 +99,13 @@ public class ServerMethods {
 
 
     public String login(String username, String password) {
-        User toValidate = db.findUser(username);
+        User toValidate = null;
+        try {
+            toValidate = db.findUser(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failure";
+        }
         String userPassword = toValidate.getPassword();
         if(userPassword.equals(password)) {
             return "Success";

@@ -182,9 +182,10 @@ public class Database {
     }
 
     public User findUser(String username) {
+        System.out.println("Parameter received: " + username);
         ArrayList<User> userList = this.getUserList();
         for (User user : userList) {
-            if (user.getName().equals(username)) {
+            if (user.getUsername().equals(username)) {
                 return user;
             }
         }
