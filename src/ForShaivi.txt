@@ -6,7 +6,7 @@ Add project language: "ADDPROJECTLANGUAGES " + languages + " " + projectLanguage
 
 Add user languages: "ADDUSERLANGUAGED " + userLanguages + " " + username
 
-Add project owned: "ADDPROJECTOWNED " + "
+Add project owned: "ADDPROJECTOWNED " + projectName + " " + description + " " + languages + " " + username
 
 Add project on: "ADDPROJECTON " + projectName + " " + description + " " + languages + " " + username
 
