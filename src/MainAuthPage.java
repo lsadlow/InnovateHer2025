@@ -29,11 +29,12 @@ public class MainAuthPage {
         this.bfr = client.getDis();
 
       start();
+
    }
 
 
     // main page (login, sign up)
-    public  void start() {
+    public  void start()  {
 
         /*
 
@@ -175,6 +176,11 @@ public class MainAuthPage {
         });
 
         frame.setVisible(true);
+        try {
+            bfr.readUTF();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -333,149 +339,101 @@ public class MainAuthPage {
     // signup details (server code 1)
     private void signUp() {
 
-        // create a frame
-        JFrame frame = new JFrame("Sign Up");
-        frame.setLayout(new FlowLayout());
-        frame.setSize(new Dimension(2000, 1000));
-        frame.getContentPane().setBackground(new Color(0x141414));
 
+                JFrame frame = new JFrame("Sign Up");
+                frame.setLayout(null); // Use null layout for precise positioning
+                frame.setSize(new Dimension(2000, 1000));
+                frame.getContentPane().setBackground(new Color(0x141414));
 
-        JPanel topPanel = new JPanel();
-        topPanel.setPreferredSize(new Dimension(2000, 1000));
-        topPanel.setBackground(new Color(0x141414));
-        topPanel.setLayout(null);
+                // Create a JLayeredPane for layering components
+                JLayeredPane layeredPane = new JLayeredPane();
+                layeredPane.setBounds(0, 0, 2000, 1000);
+                frame.add(layeredPane);
 
-        JLabel banner = new JLabel("        About" , JLabel.CENTER);
-        banner.setFont(new Font("Monospaced", Font.BOLD, 40));
-        ImageIcon front = new ImageIcon("img_1.png");
-        Image frontImage = front.getImage().getScaledInstance(1800, 325, Image.SCALE_SMOOTH);
-        ImageIcon frontIcon = new ImageIcon(frontImage);
-        banner.setIcon(frontIcon);
-        banner.setVerticalTextPosition(JLabel.TOP);
-        banner.setHorizontalTextPosition(JLabel.CENTER);
-        banner.setHorizontalAlignment(JLabel.CENTER);
-        banner.setForeground(new Color(0x6eaa6b));
-        banner.setOpaque(true);
-        banner.setIconTextGap(-220);
-        banner.setBounds(0, 0, 1800, 325);
-        topPanel.add(banner);
+                // Create the banner with an image
+                JLabel banner = new JLabel();
+                banner.setFont(new Font("Monospaced", Font.PLAIN, 40));
+                ImageIcon front = new ImageIcon("img_15.png");
+                Image frontImage = front.getImage().getScaledInstance(1400, 350, Image.SCALE_SMOOTH);
+                ImageIcon frontIcon = new ImageIcon(frontImage);
 
+                banner.setIcon(frontIcon);
+                banner.setVerticalTextPosition(JLabel.TOP);
+                banner.setHorizontalTextPosition(JLabel.CENTER);
+                banner.setHorizontalAlignment(JLabel.CENTER);
+                banner.setForeground(new Color(0x6eaa6b));
+                banner.setOpaque(true);
+                banner.setIconTextGap(-220);
+                banner.setBounds(75, 0, 1400, 350);
+                layeredPane.add(banner, Integer.valueOf(0)); // Add to the lowest layer
 
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
+                // Create the input panel
+                JPanel inputPanel = new JPanel();
+                inputPanel.setLayout(new GridLayout(7, 2, 10, 20)); // Use GridLayout for neat label-text field pairs
+                inputPanel.setBackground(new Color(0x141414)); // Transparent background
+                inputPanel.setBorder(BorderFactory.createLineBorder(new Color(0xFFE9C7)));
+                inputPanel.setOpaque(true);
+                inputPanel.setBounds(475, 280, 600, 450); // Positioned on top of the banner
 
-        inputPanel.setBounds(570, 300, 650, 450);
+                // Labels and fields
+                String[] labels = {"First Name:", "Purdue email:", "Major:", "Skills:", "Username:", "Password:", "Confirm Password:"};
+                JTextField[] textFields = new JTextField[labels.length]; // Array to store text fields
 
-        inputPanel.setBackground(new Color(0x141414));
+                for (int i = 0; i < labels.length; i++) {
+                    JLabel fieldLabel = new JLabel(labels[i]);
+                    fieldLabel.setFont(new Font("Monospaced", Font.PLAIN, 20));
+                    fieldLabel.setForeground(new Color(0xFFE9C7));
 
+                    JTextField textField = new JTextField();
+                    textField.setPreferredSize(new Dimension(350, 40));
+                    textField.setBorder(BorderFactory.createLineBorder(new Color(0xFFE9C7)));
+                    textField.setFont(new Font("Monospaced", Font.BOLD, 20));
 
-        JLabel firstName = new JLabel("      First Name: ");
-        // Labels don't need prefered size
-        firstName.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        firstName.setForeground(Color.yellow);
+                    inputPanel.add(fieldLabel);
+                    inputPanel.add(textField);
+                    textFields[i] = textField; // Store reference to the text field
+                }
 
-        JTextField firstNameFeild = new JTextField();
-        firstNameFeild.setPreferredSize(new Dimension(350, 40));
-        firstNameFeild.setBorder(BorderFactory.createEmptyBorder());
-        firstNameFeild.setFont(new Font("Monospaced", Font.BOLD, 20));
+                // Add the input panel to the layered pane
+                layeredPane.add(inputPanel, Integer.valueOf(1)); // Add to a higher layer
 
-        inputPanel.add(firstName);
-        inputPanel.add(firstNameFeild);
+                // Add control panel
+                JPanel controlPanel = new JPanel();
+                controlPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 10));
+                controlPanel.setBounds(420, 760, 700, 250);
+                controlPanel.setBackground(new Color(0x141414));
 
-        JLabel email = new JLabel("    Purdue email: "); // Labels don't need prefered size
-        email.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        email.setForeground(Color.yellow);
+                JButton signUpButton = new JButton("Sign Up");
+                signUpButton.setPreferredSize(new Dimension(150, 50));
+                signUpButton.setBackground(new Color(0x97B0FF));
+                signUpButton.setBorder(BorderFactory.createEtchedBorder());
+                signUpButton.setFocusable(false);
+                signUpButton.setFont(new Font("Monospaced", Font.BOLD, 20));
+                signUpButton.setForeground(Color.black);
 
-        JTextField emailFeild = new JTextField();
-        emailFeild.setPreferredSize(new Dimension(350, 40));
-        emailFeild.setBorder(BorderFactory.createEmptyBorder());
-        emailFeild.setFont(new Font("Monospaced", Font.BOLD, 20));
-        inputPanel.add(email);
-        inputPanel.add(emailFeild);
-        topPanel.add(inputPanel);
+        // action listeners
+      signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+               // Signup : "SIGNUP " + name + " " + username + " " + password + " " + email + " " + languages + " " + major + " " + confirmPassword                try {
+                    String outputString = "SIGNUP" + " " + textFields[0].getText().trim() + " " + textFields[4].getText().trim() + " " +
+                            textFields[5].getText().trim() + " " + textFields[1].getText().trim() + " " +
+                            textFields[3].getText().replace(" ", "`") + " " + textFields[2].getText().replace(" ", "`") + " " +
+                            textFields[6].getText().trim();
+                    output.writeUTF(outputString);
+                    // server response
+                    String serverResponse = bfr.readUTF();
+                    System.out.println(serverResponse);
+                    JOptionPane.showMessageDialog(frame, serverResponse);
+                    frame.dispose();
+                    start();
 
-        // Phone
-        JLabel major = new JLabel("          Major:  "); // Labels don't need prefered size
-        major.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        major.setForeground(Color.yellow);
-
-        JTextField majorFeild = new JTextField();
-        majorFeild.setPreferredSize(new Dimension(350, 40));
-        majorFeild.setBorder(BorderFactory.createEmptyBorder());
-        majorFeild.setFont(new Font("Monospaced", Font.BOLD, 20));
-        inputPanel.add(major);
-        inputPanel.add(majorFeild);
-        topPanel.add(inputPanel);
-
-        // skills
-        // Phone
-        JLabel skills = new JLabel("          Skills: "); // Labels don't need prefered size
-        skills.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        skills.setForeground(Color.yellow);
-
-        JTextField skillsFeild = new JTextField();
-        skillsFeild.setPreferredSize(new Dimension(350, 40));
-        skillsFeild.setBorder(BorderFactory.createEtchedBorder());
-        skillsFeild.setFont(new Font("Monospaced", Font.BOLD, 20));
-        inputPanel.add(skills);
-        inputPanel.add(skillsFeild);
-        topPanel.add(inputPanel);
-
-        //Username
-        JLabel username = new JLabel("        Username: "); // Labels don't need prefered size
-        username.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        username.setForeground(Color.yellow);
-
-        JTextField usernameFeild = new JTextField();
-        usernameFeild.setPreferredSize(new Dimension(350, 40));
-        usernameFeild.setBorder(BorderFactory.createEmptyBorder());
-        usernameFeild.setFont(new Font("Monospaced", Font.BOLD, 20));
-        inputPanel.add(username);
-        inputPanel.add(usernameFeild);
-        topPanel.add(inputPanel);
-
-        //Password
-        JLabel password = new JLabel("        Password: "); // Labels don't need prefered size
-        password.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        password.setForeground(Color.yellow);
-
-        JTextField passwordFeild = new JTextField();
-        passwordFeild.setPreferredSize(new Dimension(350, 40));
-        passwordFeild.setBorder(BorderFactory.createEmptyBorder());
-        passwordFeild.setFont(new Font("Monospaced", Font.BOLD, 20));
-        inputPanel.add(password);
-        inputPanel.add(passwordFeild);
-        topPanel.add(inputPanel);
-
-        // Confirm Password
-        JLabel confirm = new JLabel("Confirm Password: "); // Labels don't need prefered size
-        confirm.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        confirm.setForeground(Color.yellow);
-
-        JTextField confirmFeild = new JTextField();
-        confirmFeild.setPreferredSize(new Dimension(350, 40));
-        confirmFeild.setBorder(BorderFactory.createEmptyBorder());
-        confirmFeild.setFont(new Font("Monospaced", Font.BOLD, 20));
-        inputPanel.add(confirm);
-        inputPanel.add(confirmFeild);
-        topPanel.add(inputPanel);
-
-
-        //Buttons
-        JPanel controlPanel = new JPanel();
-        controlPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 10));
-        controlPanel.setBounds(630, 800, 700, 250);
-        controlPanel.setBackground(new Color(0x141414));
-
-        JButton signUpButton = new JButton("Sign Up");
-        signUpButton.setPreferredSize(new Dimension(150, 50));
-        signUpButton.setBackground(Color.magenta);
-        signUpButton.setBorder(BorderFactory.createEtchedBorder());
-        signUpButton.setFocusable(false);
-        signUpButton.setFont(new Font("Monospaced", Font.BOLD, 20));
-        signUpButton.setForeground(Color.black);
-        signUpButton.setOpaque(true);
-
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         JButton backButton = new JButton("Back");
         backButton.setPreferredSize(new Dimension(150, 50));
@@ -484,43 +442,6 @@ public class MainAuthPage {
         backButton.setFocusable(false);
         backButton.setFont(new Font("Monospaced", Font.BOLD, 20));
         backButton.setForeground(Color.black);
-        backButton.setOpaque(true);
-
-
-        // instantiate HomePageGUI to use its methods
-        //HomePage homePage = new HomePage(client);
-
-        controlPanel.add(signUpButton);
-        controlPanel.add(backButton);
-        topPanel.add(controlPanel);
-
-        frame.add(topPanel);
-        frame.setVisible(true);
-
-    // action listeners
-        signUpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try{
-               // Signup : "SIGNUP " + name + " " + username + " " + password + " " + email + " " + languages + " " + major + " " + confirmPassword                try {
-                    String outputString = "SIGNUP" + " " + firstNameFeild.getText().trim() + " " + usernameFeild.getText().trim() + " " +
-                            passwordFeild.getText().trim() + " " + emailFeild.getText().trim() + " " +
-                            skillsFeild.getText().replace(" ", "`") + " " + majorFeild.getText().replace(" ", "`") + " " +
-                            confirmFeild.getText().trim();
-                    output.writeUTF(outputString);
-                    // server response
-                    String serverResponse = bfr.readLine();
-                    System.out.println(serverResponse);
-
-                        JOptionPane.showMessageDialog(frame, serverResponse);
-                        frame.dispose();
-                        start();
-
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -528,6 +449,11 @@ public class MainAuthPage {
                 start();
             }
         });
+
+        controlPanel.add(signUpButton) ;
+        controlPanel.add(backButton) ;
+        frame.add(controlPanel) ;
+        frame.setVisible(true );
 
    }
 
