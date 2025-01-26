@@ -37,7 +37,17 @@ public class GUI implements Runnable {
         JButton confirmButton = new JButton("Confirm");
         JButton cancelButton = new JButton("Cancel");
         confirmButton.addActionListener(e -> {
-
+            String projectName = enterProjectNameTextField.getText();
+            String description = enterProjectDescriptionTextField.getText();
+            String languages = enterProjectLanguagesTextField.getText();
+            String toSend = "ADDPROJECT " + projectName + " " + description + " " + languages + " " + user.getUsername();
+            try {
+                out.writeUTF(toSend);
+                frame.dispose();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                JOptionPane.showMessageDialog(frame, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
         cancelButton.addActionListener(e -> {
             frame.dispose();
