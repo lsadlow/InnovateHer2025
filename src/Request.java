@@ -19,11 +19,28 @@ public class Request {
         sender.addSentRequest(this);
     }
 
+    // getters
     public String getMessage() {
         return message;
     }
 
     public String checkStatus() {
+        return status;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public User getProjectOwner() {
+        return projectOwner;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public String getStatus() {
         return status;
     }
 

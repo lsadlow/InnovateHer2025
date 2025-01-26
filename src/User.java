@@ -26,6 +26,8 @@ public class User {
         this.receivedRequests = setReceivedRequests(receivedRequests);
         this.username = username;
         this.major = major;
+        this.sentRequests = new ArrayList<Request>();
+        this.receivedRequests = new ArrayList<Request>();
     }
 
     // Getters
@@ -51,6 +53,22 @@ public class User {
 
     public String getBio(){
         return bio;
+    }
+
+    public ArrayList<String> getProjectsOwned() {
+        return projectsOwned;
+    }
+
+    public ArrayList<String> getProjectsOn() {
+        return projectsOn;
+    }
+
+    public ArrayList<Request> getSentRequests() {
+        return sentRequests;
+    }
+
+    public ArrayList<Request> getReceivedRequests() {
+        return receivedRequests;
     }
 
     // Setters
@@ -97,6 +115,14 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public void setProjectsOwned(ArrayList<String> projects) {
+        this.projectsOwned = projects;
+    }
+
+    public void setProjectsOn(ArrayList<String> projects) {
+        this.projectsOn = projects;
     }
 
     // Other methods
@@ -154,14 +180,6 @@ public class User {
         }
         userString = userString.substring(0, userString.length() - 1);
         return userString;
-    }
-
-    public ArrayList<String> getProjectsOwned() {
-        return projectsOwned;
-    }
-
-    public ArrayList<String> getProjectsOn() {
-        return projectsOn;
     }
 
     public void addReceivedRequest(Request request) {
