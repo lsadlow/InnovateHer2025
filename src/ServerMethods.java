@@ -75,6 +75,7 @@ public class ServerMethods {
                          String confirmPassword){
         major = major.replace("`", " ");
         languages = languages.replace("`", " ");
+        name = name.replace("`", " ");
         String result = db.confirmSignup(email, username, password, confirmPassword);
         if(result.equals("Signup successful!")) {
             User user = new User(name, username, password, email, languages, major, "", "", "", "");

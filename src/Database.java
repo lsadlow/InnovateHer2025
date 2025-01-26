@@ -55,7 +55,7 @@ public class Database {
         }
         for (int i = 0; i < projects.size(); i++) {
             if (projects.get(i).getName().equals(projectName)) {
-                return "Project name is already taken";
+                return "Project name is already taken.";
             }
         }
         return "Valid project name. ";
