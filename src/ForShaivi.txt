@@ -1,0 +1,27 @@
+Signup : "SIGNUP " + name + " " + username + " " + password + " " + email + " " + languages + " " + major + " " + confirmPassword
+
+Login: "LOGIN " + username + " " + password
+
+Add project language: "ADDPROJECTLANGUAGES " + languages + " " + projectLanguages
+
+Add user languages: "ADDUSERLANGUAGED " + userLanguages + " " + username
+
+Add project owned: "ADDPROJECTOWNED " + "
+
+Add project on: "ADDPROJECTON " + projectName + " " + description + " " + languages + " " + username
+
+Remove project: "REMOVEPROJECT " + projectName
+
+Change username: "CHANGEUSERNAME " + currentUsername + " " + newUsername
+
+Change password: "CHANGEPASSWORD " + currentUsername + " " + newPassword
+
+Add bio: "ADDBIO " + username + " " + bio
+
+Accept request: "ACCEPTREQUEST " + ownerUsername + " " + projectName + " " + requesterUsername
+
+Reject request: "REJECTREQUEST " + ownerUsername + " " + projectName + " " + requesterUsername
+
+Set invisible: "SETINVISIBLE " + projectName
+
+Set visible: "SETVISIBLE " + projectName
