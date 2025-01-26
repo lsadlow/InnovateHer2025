@@ -306,16 +306,22 @@ public class MainAuthPage {
                     String outputString = "LOGIN " + usernameFeild.getText() + " " + passwordFeild.getText() ;
 
                     output.writeUTF(outputString);
+                    String serverResponse = bfr.readUTF() ;
+
                     Database database = new Database();
                     User thisUser = database.findUser(usernameFeild.getText()) ;
                     client.user = thisUser ;
                     // server response
-                    String serverResponse = bfr.readLine();
-                    if (serverResponse.equals("true")) {
+                    JOptionPane.showMessageDialog(null, serverResponse);
+
+                    if (serverResponse.equals("Success")) {
+
                         frame.dispose();
                         homePage.showHomePage(thisUser);
                     } else {
                         JOptionPane.showMessageDialog(frame, "Login failed. Please check that username and password are correct.");
+                        frame.dispose();
+                        start();
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -326,7 +332,7 @@ public class MainAuthPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                start();
+                new MainAuthPage(client).start();
             }
         });
 
