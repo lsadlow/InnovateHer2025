@@ -298,6 +298,8 @@ public class MainAuthPage {
                     String serverResponse = bfr.readUTF() ;
 
                     Database database = new Database();
+
+                    database.loadUsers();
                     User thisUser = database.findUser(usernameField.getText()) ;
                     client.user = thisUser ;
                     // server response

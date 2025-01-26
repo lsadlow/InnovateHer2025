@@ -6,6 +6,7 @@ public class Client {
     private Socket socket;
     private DataInputStream dis;
     private DataOutputStream dos;
+    private Database clientDatabase;
 
     public User user ;
 
@@ -19,6 +20,10 @@ public class Client {
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
             user = null ;
+            clientDatabase = new Database() ;
+            clientDatabase.loadUsers();
+            clientDatabase.loadProjects();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

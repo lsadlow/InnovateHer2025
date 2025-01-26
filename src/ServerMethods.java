@@ -6,6 +6,7 @@ public class ServerMethods {
 
     public ServerMethods(Database db) {
         this.db = db;
+        db.loadUsers();
     }
 
     public String serverFunctions(String infoSent) {
@@ -98,21 +99,24 @@ public class ServerMethods {
     }
 
 
-    public String login(String username, String password) {
-        User toValidate = null;
-        try {
-            toValidate = db.findUser(username);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Failure";
+    public String  login(String username, String password) {
+        User toValidate = db.findUser(username);
+
+        if (toValidate == null) {
+            System.out.println("Login failed: User not found.");
+            return "Faliure";
         }
-        String userPassword = toValidate.getPassword();
-        if(userPassword.equals(password)) {
+
+        if (toValidate.getPassword().equals(password)) {
+            System.out.println("Login successful.");
             return "Success";
         } else {
-            return "Failure";
+            System.out.println("Login failed: Incorrect password.");
+            return "Faliure";
         }
     }
+
+
 
     // Language updates
 
