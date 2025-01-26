@@ -7,7 +7,7 @@ public class GUI {
     public GUI() {
         this.user = null;
     }
-
+/*
     public void showSignUpDialog() {
         JFrame frame = new JFrame("Sign Up");
         JPanel signUpPanel = new JPanel();
@@ -63,13 +63,51 @@ public class GUI {
         signUpPanel.add(cancelButton);
         frame.add(signUpPanel);
         frame.setVisible(true);
-    }
+    } */
+
+
     public void displayWelcomeMessage() {
         JOptionPane.showMessageDialog(null, "Welcome to our app!");
     }
 
     public static void main(String[] args) {
         GUI gui = new GUI();
-        gui.displayWelcomeMessage();
+        gui.showCreateProjectDialog();
+    }
+
+    public void showCreateProjectDialog() {
+        JFrame frame = new JFrame("Create Project");
+        JPanel createProjectPanel = new JPanel();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        createProjectPanel.setLayout(new BoxLayout(createProjectPanel, BoxLayout.Y_AXIS));
+        frame.setSize(600, 400);
+        frame.setLocationRelativeTo(null);
+        JLabel enterProjectNameLabel = new JLabel("Enter the name of your project:");
+        JTextField enterProjectNameTextField = new JTextField(10);
+
+        JLabel enterProjectDescriptionLabel = new JLabel("Enter a description of your project:");
+        JTextField enterProjectDescriptionTextField = new JTextField(10);
+
+        JLabel enterProjectLanguagesLabel = new JLabel("Enter the languages the project might use (with a space between each):");
+        JTextField enterProjectLanguagesTextField = new JTextField(10);
+
+        JButton confirmButton = new JButton("Confirm");
+        JButton cancelButton = new JButton("Cancel");
+        confirmButton.addActionListener(e -> {
+
+        });
+        cancelButton.addActionListener(e -> {
+            frame.dispose();
+        });
+        createProjectPanel.add(enterProjectNameLabel);
+        createProjectPanel.add(enterProjectNameTextField);
+        createProjectPanel.add(enterProjectDescriptionLabel);
+        createProjectPanel.add(enterProjectDescriptionTextField);
+        createProjectPanel.add(enterProjectLanguagesLabel);
+        createProjectPanel.add(enterProjectLanguagesTextField);
+        createProjectPanel.add(confirmButton);
+        createProjectPanel.add(cancelButton);
+        frame.add(createProjectPanel);
+        frame.setVisible(true);
     }
 }
