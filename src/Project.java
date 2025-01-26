@@ -8,11 +8,12 @@ public class Project {
     private ArrayList<String> languages;
     private User poster;
     private boolean visible;
+    private ArrayList<String> collaborators;
 
     private String username;
     private Database db;
 
-    public Project(String name, String description, String languages, String username) {
+    public Project(String name, String description, String languages, String username, String collaborators) {
         this.name = name;
         this.description = description;
         this.languages = this.setLanguages(languages);
@@ -20,15 +21,51 @@ public class Project {
         Database db = new Database();
         db.loadUsers();
         this.poster = db.findUser(username);
+        this.collaborators = this.setCollaborators(collaborators);
         this.visible = true;
     }
 
+    // Getters
     public String getName() {
         return name;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public ArrayList<String> getLanguages() {
+        return languages;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public ArrayList<String> getCollaborators(){
+        return collaborators;
+    }
+
+    public User getPoster() {
+        return poster;
+    }
+
+    // Setters
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPoster(User poster) {
+        this.poster = poster;
     }
 
     public void makeVisible() {
@@ -39,8 +76,12 @@ public class Project {
         this.visible = false;
     }
 
-    public boolean isVisible() {
-        return visible;
+    public void setCollaborators(ArrayList<String> collaborators) {
+        this.collaborators = collaborators;
+    }
+
+    public void addCollaborator(String username) {
+        this.collaborators.add(username);
     }
 
     public void addLanguage(String language) {
@@ -80,16 +121,22 @@ public class Project {
             languagesString += languages.get(i) + ",";
         }
         languagesString = languagesString.substring(0, languagesString.length() - 1);
-        String postToString = name + ";" + description + ";" + languagesString + ";" + poster.getUsername();
+        String collaboratorsString = "";
+        for (int i = 0; i < collaborators.size(); i++) {
+            collaboratorsString += collaborators.get(i) + ",";
+        }
+        collaboratorsString = collaboratorsString.substring(0, collaboratorsString.length() - 1);
+        String postToString = name + ";" + description + ";" + languagesString + ";" + poster.getUsername() +";" + collaboratorsString;
         return postToString;
     }
 
-    public ArrayList<String> getLanguages() {
-        return languages;
-    }
-
-    public User getPoster() {
-        return poster;
+    public ArrayList<String> setCollaborators(String collaborators) {
+        String[] collaboratorArray = collaborators.split(",");
+        ArrayList<String> newCollaborators = new ArrayList<>();
+        for (String collaborator : collaboratorArray) {
+            newCollaborators.add(collaborator);
+        }
+        return newCollaborators;
     }
 
 }

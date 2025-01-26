@@ -19,6 +19,7 @@ public class Request {
         sender.addSentRequest(this);
     }
 
+    // getters
     public String getMessage() {
         return message;
     }
@@ -27,16 +28,36 @@ public class Request {
         return status;
     }
 
+    public User getSender() {
+        return sender;
+    }
+
+    public User getProjectOwner() {
+        return projectOwner;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
     public void rejectRequest() {
         this.status = "rejected";
+        sender.removeSentRequest(this);
+        projectOwner.removeReceivedRequest(this);
     }
 
     public void acceptRequest() {
         this.status = "accepted";
-        this.sender.addProject(projectName);
+        this.sender.addProjectOn(projectName);
+        projectOwner.removeReceivedRequest(this);
+        sender.removeSentRequest(this);
     }
 
     public String toString() {
-        return "" + sender + " " + status;
+        return "" + sender + "," + projectName + "," + message;
     }
 }

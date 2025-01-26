@@ -31,9 +31,9 @@ public class Database {
     }
 
     // Confirming methods
-    public String confirmSignup(String email, String username, String password) {
+    public String confirmSignup(String email, String username, String password, String confirmpassword) {
         String results = "";
-        results += confirmEmail(email) + confirmUsername(username) + confirmPassword(password);
+        results += confirmEmail(email) + confirmUsername(username) + confirmPassword(password, confirmpassword);
         if (results.isEmpty()) {
             return "Signup successful!";
         } else {
@@ -67,7 +67,7 @@ public class Database {
         return "";
     }
 
-    public String confirmPassword(String password) {
+    public String confirmPassword(String password, String confirmPassword) {
         boolean uppercase = false;
         boolean lowercase = false;
         boolean number = false;
@@ -108,6 +108,10 @@ public class Database {
             issues += "Password must be between 8 and 15 characters long. ";
         }
 
+        if (!(password.equals(confirmPassword))) {
+            issues += "Confirm password does not match. ";
+        }
+
         return issues;
     }
 
@@ -126,7 +130,7 @@ public class Database {
             String line = userDataReader.readLine();
             while (line != null) {
                 String[] userParameters = line.split(";");
-                User toBeAdded = new User(userParameters[0], userParameters[1], userParameters[2], userParameters[3], userParameters[4], userParameters[5]);
+                User toBeAdded = new User(userParameters[0], userParameters[1], userParameters[2], userParameters[3], userParameters[4], userParameters[5], userParameters[6], userParameters[7], userParameters[8], userParameters[9]);
                 userList.add(toBeAdded);
                 line = userDataReader.readLine();
             }
@@ -146,7 +150,7 @@ public class Database {
             String line = projectDataReader.readLine();
             while (line != null) {
                 String[] projectParameters = line.split(";");
-                Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2], projectParameters[3]);
+                Project toBeAdded = new Project(projectParameters[0], projectParameters[1], projectParameters[2], projectParameters[3], projectParameters[4]);
                 projects.add(toBeAdded);
                 line = projectDataReader.readLine();
             }
@@ -185,40 +189,59 @@ public class Database {
     }
 
     public String removeProject(String projectName) {
-        int counter = 0;
+        Project toRemove = findProject(projectName);
         for (Project project : projects) {
             if (project.getName().equals(projectName)) {
                 projects.remove(project);
-                counter++;
                 break;
             }
         }
-        for (User user : userList) {
-            if (projectIsUsers(projectName, user.getUsername())) {
-                user.removeProject(projectName);
-                counter++;
-                break;
-            }
+        User poster = toRemove.getPoster();
+        poster.removeProjectOwned(projectName);
+        for (int i = 0; i < toRemove.getCollaborators().size(); i++) {
+            User user = findUser(toRemove.getCollaborators().get(i));
+            user.removeProjectOn(projectName);
         }
-        if (counter == 2) {
-            return "Success";
-        } else {
-            return "Failure";
-        }
+        return "Project removed";
     }
 
     public String getUsersProjects(String username) {
         String projects = "";
         try {
             User findUser = this.findUser(username);
-            ArrayList<String> projectList = findUser.getProjects();
-            for (String project : projectList) {
+            ArrayList<String> projectOwnedList = findUser.getProjectsOwned();
+            ArrayList<String> projectsOnList = findUser.getProjectsOn();
+            for (String project : projectOwnedList) {
+                projects += project + ",";
+            }
+            projects += " ";
+            for (String project : projectsOnList) {
                 projects += project + ",";
             }
             return projects;
         } catch (Exception e) {
             e.printStackTrace();
             return "Failure";
+        }
+    }
+
+    public void updateDatabase() {
+        try {
+            userDataFile = new File("users.txt");
+            projectDataFile = new File("projects.txt");
+            PrintWriter userFileWriter = new PrintWriter(new FileWriter(userDataFile));
+            PrintWriter projectFileWriter = new PrintWriter(new FileWriter(projectDataFile));
+            for (User user : userList) {
+                this.addUser(user);
+                userFileWriter.println(user.toString());
+                userFileWriter.flush();
+            }
+            for (Project project : projects) {
+                projectFileWriter.println(project.toString());
+                projectFileWriter.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
